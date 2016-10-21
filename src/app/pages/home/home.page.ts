@@ -7,7 +7,5 @@ import { AuthService } from '../../services';
   styleUrls: ['./home.page.scss']
 })
 export class HomePage {
-  constructor(public auth: AuthService) {
-    console.log(auth.isLoggedIn);
-  }
+  constructor(public auth: AuthService) {}
 }

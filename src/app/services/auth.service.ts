@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
 import { Router } from '@angular/router';
+
+import { FirebaseService } from './firebase.service';
 
 @Injectable()
 export class AuthService {
   isLoggedIn: boolean;
   isLoadingAuth: boolean = true;
-  constructor(public af: AngularFire, public router: Router) {
-    af.auth.subscribe(data => {
+  constructor(public fbs: FirebaseService, public rtr: Router) {
+    fbs.authSubscribe(data => {
       console.log('auth subscribe: ', data);
       (data) ? this.processLogin() : this.processLogout();
       this.isLoadingAuth = false;
@@ -15,20 +16,16 @@ export class AuthService {
   }
   processLogin() {
     this.isLoggedIn = true;
-    this.router.navigate(['/']);
+    this.rtr.navigate(['/']);
   }
   processLogout() {
     this.isLoggedIn = false;
-    this.router.navigate(['/login']);
+    this.rtr.navigate(['/login']);
   }
-  facebookLogin() {
-    console.log('logging in with facebook');
-    this.af.auth.login().then(() => {
-      console.log('you are logging in');
-    });
+  login() {
+    this.fbs.authLogin();
   }
   logout() {
-    console.log('logging out');
-    this.af.auth.logout();
+    this.fbs.authLogout();
   }
 }

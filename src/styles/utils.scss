@@ -1,0 +1,11 @@
+.space-around{
+  display: flex;
+  justify-content: space-around;
+  &:after{content: none;}
+}
+
+.space-between{
+  display: flex;
+  justify-content: space-between;
+  &:after{content: none;}
+}

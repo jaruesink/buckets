@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+
+import { FirebaseService } from './firebase.service';
 
 @Injectable()
 export class UserService {
-  constructor(public af: AngularFire) {
-    
+  me: Object;
+  constructor(public fbs: FirebaseService) {}
+  saveUser({displayName:name, email, photoURL:photo}) {
+    this.me = {name, email, photo};
   }
 }

@@ -1,1 +1,8 @@
-<button *ngIf="!auth.isLoggedIn" class="btn btn-primary" (click)="auth.facebookLogin()">Login</button>
+<main class="m-t-3">
+  <div class="card">
+    <div class="card-block">
+      <h4 class="card-title">Welcome</h4>
+      <button class="btn btn-primary" (click)="auth.facebookLogin()">Login</button>
+    </div>
+  </div>
+</main>

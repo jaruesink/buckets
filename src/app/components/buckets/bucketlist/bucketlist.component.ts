@@ -4,11 +4,18 @@ import { BucketService } from '../../../services';
 @Component({
   selector: 'bucketlist',
   template: `
-  <loading *ngIf="!bks.buckets"></loading>
-  <div class="container m-t-2 space-around">
-    <div *ngFor="let bucket of bks.buckets" class="card">
-      {{bucket.name}}
-    </div>
+  <loading *ngIf="(bks.buckets?.length < 1)"></loading>
+  <div [hidden]="(bks.buckets?.length < 1)" class="container m-t-2">
+    <ul class="list-unstyled space-between">
+      <li *ngFor="let bucket of bks.buckets">
+        <bucketcard [bucket]="bucket"></bucketcard>
+      </li>
+      <addbucket></addbucket>
+      <li class="fake-li" aria-hidden="true"></li>
+      <li class="fake-li" aria-hidden="true"></li>
+      <li class="fake-li" aria-hidden="true"></li>
+      <li class="fake-li" aria-hidden="true"></li>
+    </ul>
   </div>
   `,
   styleUrls: ['./bucketlist.scss']

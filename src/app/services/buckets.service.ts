@@ -11,4 +11,9 @@ export class BucketService {
       this.buckets = data;
     });
   }
+  addBucket(form) {
+    console.log(form.value);
+    this.fbs.addBucket(form.value);
+    form.reset();
+  }
 }

@@ -4,10 +4,12 @@ export const PagesList = [ HomePage, LoginPage ];
 
 //Components
 import {
-  LoadingComponent, HeaderComponent, BucketlistComponent
+  LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
+  AddbucketComponent
 } from './components';
 export const ComponentsList = [
-  LoadingComponent, HeaderComponent, BucketlistComponent
+  LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
+  AddbucketComponent
 ];
 
 //Directives
@@ -15,8 +17,8 @@ export const DirectivesList = [];
 
 //Services
 import {
-  AuthService, FirebaseService, UserService, BucketService
+  FirebaseService, AuthService, UserService, BucketService
 } from './services';
 export const ServicesList = [
-  AuthService, FirebaseService, UserService, BucketService
+  FirebaseService, AuthService, UserService, BucketService
 ];

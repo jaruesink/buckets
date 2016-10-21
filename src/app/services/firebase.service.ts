@@ -7,13 +7,18 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 import * as firebase from 'firebase';
 import { firebaseConfig } from '../firebase';
 
+//Services
+import { UserService } from './user.service';
+
+const FIRE = firebase.initializeApp(firebaseConfig)
+const FIREAUTH = FIRE.auth();
+const FIREDB = FIRE.database();
+const BUCKETSREF = FIREDB.ref('/buckets');
+
 @Injectable()
 export class FirebaseService {
-  buckets$: FirebaseListObservable<any> = this.af.database.list('/buckets');
-  constructor(public af: AngularFire) {
-    const BUCKETSREF = firebase.initializeApp(firebaseConfig).database().ref('/buckets');
-    BUCKETSREF.once('value').then(snapshot => console.log('fb buckets ref data: ', snapshot.val()));
-  }
+  uid: string;
+  constructor(public af: AngularFire) {}
   
   // AUTH DATA
   authSubscribe(reader) {
@@ -34,8 +39,19 @@ export class FirebaseService {
   
   // BUCKETS DATA
   bucketsSubscribe(reader) {
-    this.buckets$.subscribe(data => {
-      reader(data);
+    let buckets = [];
+    this.authSubscribe(data => {
+      this.uid = data.auth.uid;
+      let ref = BUCKETSREF.orderByChild('owner').equalTo(this.uid);
+      ref.on('child_added', snapshot => {
+        buckets.push(snapshot.val());
+      });
+      reader(buckets);
     });
   }
+  addBucket(data) {
+    data.owner = this.uid;
+    BUCKETSREF.push(data);
+  }
+  
 }

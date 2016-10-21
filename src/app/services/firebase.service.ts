@@ -9,10 +9,13 @@ import { firebaseConfig } from '../firebase';
 
 @Injectable()
 export class FirebaseService {
+  buckets$: FirebaseListObservable<any> = this.af.database.list('/buckets');
   constructor(public af: AngularFire) {
     const BUCKETSREF = firebase.initializeApp(firebaseConfig).database().ref('/buckets');
     BUCKETSREF.once('value').then(snapshot => console.log('fb buckets ref data: ', snapshot.val()));
   }
+  
+  // AUTH DATA
   authSubscribe(reader) {
     this.af.auth.subscribe(data => {
       reader(data);
@@ -27,5 +30,12 @@ export class FirebaseService {
   authLogout() {
     console.log('logging out');
     this.af.auth.logout();
+  }
+  
+  // BUCKETS DATA
+  bucketsSubscribe(reader) {
+    this.buckets$.subscribe(data => {
+      reader(data);
+    });
   }
 }

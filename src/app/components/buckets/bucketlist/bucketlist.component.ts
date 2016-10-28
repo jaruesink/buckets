@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { BucketService } from '../../../services';
 
 @Component({
   selector: 'bucketlist',
   template: `
-  <loading *ngIf="(bks.buckets?.length < 1)"></loading>
-  <div [hidden]="(bks.buckets?.length < 1)" class="container m-t-2">
+  <loading *ngIf="!loaded"></loading>
+  <div [hidden]="!loaded" class="container mt-2">
     <ul class="list-unstyled space-between">
-      <li *ngFor="let bucket of bks.buckets">
+      <li *ngFor="let bucket of buckets">
         <bucketcard [bucket]="bucket"></bucketcard>
       </li>
       <addbucket></addbucket>
@@ -21,7 +20,7 @@ import { BucketService } from '../../../services';
   styleUrls: ['./bucketlist.scss']
 })
 export class BucketlistComponent {
-  constructor(public bks: BucketService) {
-    bks.subscribe();
-  }
+  @Input() buckets: any;
+  @Input() loaded: any;
+  constructor() {}
 }

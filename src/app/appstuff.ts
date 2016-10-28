@@ -1,6 +1,6 @@
 //Pages
-import { HomePage, LoginPage } from './pages';
-export const PagesList = [ HomePage, LoginPage ];
+import { HomePage, LoginPage, BucketPage } from './pages';
+export const PagesList = [ HomePage, LoginPage, BucketPage ];
 
 //Components
 import {
@@ -17,8 +17,8 @@ export const DirectivesList = [];
 
 //Services
 import {
-  FirebaseService, AuthService, UserService, BucketService
+  FirebaseService, AuthService, UserService, BucketService, HackService
 } from './services';
 export const ServicesList = [
-  FirebaseService, AuthService, UserService, BucketService
+  FirebaseService, AuthService, UserService, BucketService, HackService
 ];

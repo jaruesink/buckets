@@ -6,10 +6,12 @@ import { AuthService, UserService } from '../../services';
   template: `
   <nav class="navbar navbar-light bg-faded space-between">
     <a class="navbar-brand">
-    <img [src]="user.me?.photo" width="30" height="30" class="d-inline-block align-top rounded">
     {{title}}
     </a>
-    <button class="btn btn-danger" (click)="auth.logout()">Logout</button>
+    <div>
+      <img [src]="user.me?.photo" width="38" height="38" class="d-inline-block align-top rounded">
+      <button class="btn btn-danger" (click)="auth.logout()">Logout</button>
+    </div>
   </nav>
   `,
   styleUrls: ['./header.scss']

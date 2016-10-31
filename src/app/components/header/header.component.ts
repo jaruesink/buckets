@@ -5,7 +5,7 @@ import { AuthService, UserService } from '../../services';
 @Component({
   selector: 'header',
   template: `
-  <nav class="navbar navbar-light bg-faded space-between">
+  <nav class="navbar navbar-dark bg-inverse space-between navbar-full">
     <button *ngIf="homeButton" class="btn btn-primary" (click)="goHome()"><i class="fa fa-home" aria-hidden="true"></i></button>
     <a class="navbar-brand">
       <i *ngIf="isHome" class="fa fa-home" aria-hidden="true"></i>

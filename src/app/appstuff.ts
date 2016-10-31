@@ -5,11 +5,11 @@ export const PagesList = [ HomePage, LoginPage, BucketPage ];
 //Components
 import {
   LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
-  AddbucketComponent
+  AddbucketComponent, AddtransactionComponent
 } from './components';
 export const ComponentsList = [
   LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
-  AddbucketComponent
+  AddbucketComponent, AddtransactionComponent
 ];
 
 //Directives

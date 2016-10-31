@@ -1,0 +1,27 @@
+form{
+  @media (min-width: 768px){
+    display: flex;
+    justify-content: space-between;
+    &:after{content: none;}
+  }
+}
+input, button{
+  max-height: 38px;
+}
+.form-group{
+  margin: 0 5px;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 175px;
+  &.date{
+    margin-left: 0
+  }
+  &.description{
+    flex-grow: 3;
+    min-width: 180px;
+  }
+}
+button{
+  margin-left: 5px;
+  align-self: flex-end;
+}

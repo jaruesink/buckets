@@ -9,7 +9,10 @@ import 'rxjs/Rx';
   template: `
     <header [homeButton]="true" [title]="bucket?.name"></header>
     <loading *ngIf="!isLoaded"></loading>
-    <div class="container mt-1" *ngIf="isLoaded">{{bucket | json}}<div>
+    <div *ngIf="isLoaded">
+      <div class="container mt-1">{{bucket | json}}<div>
+      <addtransaction></addtransaction>
+    </div>
   `,
   styleUrls: ['./bucket.page.scss']
 })

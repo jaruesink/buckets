@@ -30,6 +30,7 @@ export class AuthService {
     this.fbs.authLogin();
   }
   logout() {
+    this.processLogout();
     this.fbs.authLogout();
   }
 }

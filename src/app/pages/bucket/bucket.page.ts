@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BucketService, HackService } from '../../services';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/Rx';
 
 @Component({
@@ -16,12 +16,17 @@ import 'rxjs/Rx';
 export class BucketPage {
   bucket: Object;
   isLoaded: boolean = false;;
-  constructor(public bks: BucketService, activeRoute: ActivatedRoute, hack: HackService) {
+  constructor(public bks: BucketService, activeRoute: ActivatedRoute, rtr: Router, hack: HackService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
       if ( bks.snapshot[link] ) { this.bucket = bks.snapshot[link]; this.isLoaded = true; }
       bks.snapshot$.subscribe((snapshot) => {
-        if (snapshot[link]) { this.bucket = snapshot[link]; this.isLoaded = true; }
+        if (snapshot[link]) {
+          this.bucket = snapshot[link];
+          this.isLoaded = true;
+        } else {
+          rtr.navigate(['/']);
+        }
       });
     });
     // hack for triggering data refresh
@@ -30,5 +35,9 @@ export class BucketPage {
         hack.isLoaded(bks.buckets, interval);
       }, 10)
     };
+  }
+  ngOnDestroy() {
+    this.bks.snapshot$.unsubscribe();
+    this.bks.snapshot$ = new Subject();
   }
 }

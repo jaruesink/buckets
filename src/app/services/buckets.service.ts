@@ -15,16 +15,19 @@ export class BucketService {
   bucketsLoaded: boolean = false;
   constructor(public fbs: FirebaseService, public hack: HackService) {
     this.snapshot$ = new Subject();
-
     this.subscribe((data) => {
       if ( data ) {
+        let buckets = [];
+        let snapshot = {};
         for (let bucket in data) {
           let link = data[bucket].link;
           data[bucket].$key = bucket;
-          this.snapshot[link] = data[bucket];
-          this.buckets.push(data[bucket]);
+          snapshot[link] = data[bucket];
+          buckets.push(data[bucket]);
           this.snapshot$.next(this.snapshot)
         }
+        this.buckets = buckets;
+        this.snapshot = snapshot;
         console.log('bucketlist', this.buckets);
       } else {
         this.buckets = null;

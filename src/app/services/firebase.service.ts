@@ -23,7 +23,7 @@ export class FirebaseService {
   // AUTH DATA
   authSubscribe(reader) {
     this.af.auth.subscribe(data => {
-      this.uid = data.auth.uid;
+      if (data && data.uid) {this.uid = data.uid;}
       console.log('authentication subscribe: ', data);
       reader(data);
     });

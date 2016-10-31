@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { HackService } from './hack.service';
 
+import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
@@ -10,9 +11,11 @@ import 'rxjs/Rx';
 export class BucketService {
   snapshot: Object = {};
   buckets: Array<any> = [];
-  snapshot$: Observable<any>;
+  snapshot$: Subject<any>;
   bucketsLoaded: boolean = false;
   constructor(public fbs: FirebaseService, public hack: HackService) {
+    this.snapshot$ = new Subject();
+
     this.subscribe((data) => {
       if ( data ) {
         for (let bucket in data) {
@@ -20,6 +23,7 @@ export class BucketService {
           data[bucket].$key = bucket;
           this.snapshot[link] = data[bucket];
           this.buckets.push(data[bucket]);
+          this.snapshot$.next(this.snapshot)
         }
         console.log('bucketlist', this.buckets);
       } else {
@@ -29,13 +33,10 @@ export class BucketService {
       this.bucketsLoaded = true;
     });
 
-    // this.snapshot$ = Observable.create(observer => {
-    //   observer.next(this.snapshot);
-    //   observer.complete();
-    // });
   }
   subscribe(reader) {
     this.fbs.bucketsSubscribe(data => {
+      console.log('bucket service subscribe: ', data);
       reader(data);
     });
   }

@@ -23,6 +23,8 @@ export class FirebaseService {
   // AUTH DATA
   authSubscribe(reader) {
     this.af.auth.subscribe(data => {
+      this.uid = data.auth.uid;
+      console.log('authentication subscribe: ', data);
       reader(data);
     });
   }
@@ -40,7 +42,6 @@ export class FirebaseService {
   // BUCKETS DATA
   bucketsSubscribe(reader) {
     this.authSubscribe(data => {
-      this.uid = data.auth.uid;
       let ref = BUCKETSREF.orderByChild('owner').equalTo(this.uid);
       ref.once('value', snapshot => {
         if (snapshot.val() === null) {

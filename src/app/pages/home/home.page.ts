@@ -12,8 +12,10 @@ import { BucketService, HackService } from '../../services';
 export class HomePage {
   constructor(public bks: BucketService, public hack: HackService) {
     // hack for triggering data refresh
-    let interval = setInterval(() => {
-      hack.isLoaded(bks.buckets, interval);
-    }, 50)
+    if ( bks.buckets.length < 1 ) {
+      let interval = setInterval(() => {
+        hack.isLoaded(bks.buckets, interval);
+      }, 10)
+    };
   }
 }

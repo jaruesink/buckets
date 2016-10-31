@@ -41,17 +41,26 @@ import { BucketService } from '../../../services';
 export class BucketcardComponent {
   @Input() bucket;
   isFlipped: boolean = false;
+  currentName: string;
   constructor(public bks: BucketService, public router: Router) {}
   flip(event = null) {
     event ? event.stopPropagation() : null;
     this.isFlipped = !this.isFlipped;
+    if (this.isFlipped) {
+      this.currentName = this.bucket.name;
+    } else {
+      // delay for animation effect
+      setTimeout(() => {
+        this.bucket.name = this.currentName || null;
+      }, 200)
+    }
   }
   enterBucket() {
     this.router.navigate([`/bucket/${this.bucket.link}`]);
   }
   saveBucket(form, firstInput) {
     form.value.key = this.bucket.$key
-    this.bucket.name = form.value.name;
+    this.bucket.name = form.value.name.trim();
     this.bucket.budget = form.value.budget;
     this.bks.saveBucket(form, firstInput).then(() => {
       this.flip();

@@ -6,9 +6,10 @@ import { HomePage, LoginPage, BucketPage } from './pages';
 
 
 const routes: Routes = [
+  {path: '', component: HomePage},
   {path: 'bucket/:link', component: BucketPage},
   {path: 'login', component: LoginPage},
-  {path: '', component: HomePage}
+  { path: '**', redirectTo: '/' }
 
 ];
 

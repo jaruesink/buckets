@@ -3,32 +3,44 @@ import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { HackService } from './hack.service';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
+
 @Injectable()
 export class BucketService {
+  snapshot: Object = {};
   buckets: Array<any> = [];
+  snapshot$: Observable<any>;
   bucketsLoaded: boolean = false;
   constructor(public fbs: FirebaseService, public hack: HackService) {
-    this.subscribe((bucketlist) => {
-      this.buckets = bucketlist;
+    this.subscribe((data) => {
+      if ( data ) {
+        for (let bucket in data) {
+          let link = data[bucket].link;
+          data[bucket].$key = bucket;
+          this.snapshot[link] = data[bucket];
+          this.buckets.push(data[bucket]);
+        }
+        console.log('bucketlist', this.buckets);
+      } else {
+        this.buckets = null;
+        this.snapshot = null;
+      }
       this.bucketsLoaded = true;
     });
+
+    // this.snapshot$ = Observable.create(observer => {
+    //   observer.next(this.snapshot);
+    //   observer.complete();
+    // });
   }
   subscribe(reader) {
     this.fbs.bucketsSubscribe(data => {
-      if ( data ) {
-        let bucketlist = [];
-        for (let bucket in data) {
-          data[bucket].$key = bucket;
-          bucketlist.push(data[bucket]);
-        }
-        reader(bucketlist);
-      } else {
-        reader(null);
-      }
-
+      reader(data);
     });
   }
   addBucket(form, firstInput) {
+    form.value.name = form.value.name.trim();
     this.checkBucketName(form.value.name)
       .then((new_link) => {
         form.value.link = new_link;
@@ -41,7 +53,7 @@ export class BucketService {
     firstInput.focus();
   }
   checkBucketName(name) {
-    let new_link = name.replace(/\s+/g, '-').toLowerCase();
+    let new_link = name.replace(/[^a-zA-Z\d-]+/g, '-').toLowerCase();
     return new Promise( (resolve, reject) => {
       if ( this.buckets ) {
         for ( let bucket of this.buckets ) {

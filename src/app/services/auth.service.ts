@@ -18,7 +18,9 @@ export class AuthService {
   processLogin(auth_data) {
     this.isLoggedIn = true;
     this.user.saveUser(auth_data);
-    this.rtr.navigate(['/']);
+    if ( this.rtr.url === '/login' ) {
+      this.rtr.navigate(['/']);
+    }
   }
   processLogout() {
     this.isLoggedIn = false;

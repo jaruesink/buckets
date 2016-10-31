@@ -55,6 +55,7 @@ export class FirebaseService {
       });
     });
   }
+
   addBucket(data) {
     data.owner = this.uid;
     BUCKETSREF.push(data);

@@ -24,10 +24,10 @@ export class BucketService {
           data[bucket].$key = bucket;
           snapshot[link] = data[bucket];
           buckets.push(data[bucket]);
-          this.snapshot$.next(this.snapshot)
         }
         this.buckets = buckets;
         this.snapshot = snapshot;
+        this.snapshot$.next(this.snapshot)
         console.log('bucketlist', this.buckets);
       } else {
         this.buckets = null;

@@ -15,6 +15,10 @@ export const ComponentsList = [
 //Directives
 export const DirectivesList = [];
 
+//Pipes
+import { OrderByPipe } from './pipes';
+export const PipesList = [ OrderByPipe ]
+
 //Services
 import {
   FirebaseService, AuthService, UserService, BucketService, HackService,

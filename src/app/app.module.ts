@@ -9,11 +9,11 @@ import { initializeFirebase } from './firebase/';
 
 //Components, Services, and Directives
 import { AppComponent } from './app.component';
-import { ComponentsList, ServicesList, PagesList, DirectivesList } from './appstuff';
+import { ComponentsList, ServicesList, PipesList, PagesList, DirectivesList } from './appstuff';
 import { FirebaseService } from './services';
 
 @NgModule({
-  declarations: [ AppComponent, ...DirectivesList, ...PagesList, ...ComponentsList ],
+  declarations: [ AppComponent, ...DirectivesList, ...PipesList, ...PagesList, ...ComponentsList ],
   imports: [
     BrowserModule,
     FormsModule,

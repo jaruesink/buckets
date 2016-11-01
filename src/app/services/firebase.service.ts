@@ -67,8 +67,8 @@ export class FirebaseService {
   }
   
   // TRANSACTION DATA
-  transactionsSubscribe(key, reader) {
-    let ref = BUCKETSREF.child(`${key}/transactions`)
+  transactionsSubscribe(key, begin, end, reader) {
+    let ref = BUCKETSREF.child(`${key}/transactions`).orderByChild('date').startAt(begin).endAt(end);
     console.log('transaction ref', ref);
     ref.once('value', snapshot => {
       if (snapshot.val() === null) {
@@ -80,6 +80,10 @@ export class FirebaseService {
         reader(snapshot.val());
       });
     });
+  }
+  transactionsUnsubscribe(key) {
+    let ref = BUCKETSREF.child(`${key}/transactions`);
+    ref.off();
   }
   addTransaction(key, data) {
     BUCKETSREF.child(`${key}/transactions`).push(data);

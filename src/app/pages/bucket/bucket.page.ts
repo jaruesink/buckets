@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BucketService, HackService } from '../../services';
 import { Subject } from 'rxjs/Subject';
+import * as moment from 'moment';
 import 'rxjs/Rx';
 
 @Component({
@@ -11,7 +12,7 @@ import 'rxjs/Rx';
     <loading *ngIf="!isLoaded"></loading>
     <div *ngIf="isLoaded">
       <div class="container mt-1">
-        <transactionlist [key]="bucket.$key"></transactionlist>
+        <transactionlist [month]="selectedMonth" [key]="bucket.$key"></transactionlist>
       <div>
       <addtransaction [key]="bucket.$key"></addtransaction>
       <button class="btn btn-danger mt-1" (click)="deleteBucket(bucket)">Delete Bucket</button>
@@ -21,7 +22,8 @@ import 'rxjs/Rx';
 })
 export class BucketPage {
   bucket: Object;
-  isLoaded: boolean = false;;
+  isLoaded: boolean = false;
+  selectedMonth: any = moment();
   constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, hack: HackService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];

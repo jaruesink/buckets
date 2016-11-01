@@ -1,5 +1,5 @@
 <table *ngIf="transactions.length > 0" class="hidden-md-up">
-  <tr *ngFor="let transaction of transactions">
+  <tr *ngFor="let transaction of transactions | orderBy: 'date'">
     <td>
       <table class="table table-bordered table-sm">
         <thead class="thead-default">
@@ -11,7 +11,7 @@
         <tbody>
           <tr>
             <td>{{transaction.date}}</td>
-            <td>${{transaction.amount}}</td>
+            <td class="text-xs-right">${{transaction.amount}}</td>
           </tr>
         </tbody>
         <thead class="thead-default">
@@ -32,16 +32,16 @@
 <table *ngIf="transactions.length > 0" class="table table-bordered table-sm hidden-sm-down">
   <thead class="thead-default">
     <tr>
-      <th class="table-date-lg">Date</th>
-      <th class="table-amount-lg">Amount</th>
+      <th class="table-date-lg" (click)="sort = 'date'" [ngClass]="{'pointer': sort !== 'date'}">Date <i class="fa fa-sort pull-right" [ngClass]="{'text-muted': sort !== 'date'}"></i></th>
       <th class="table-description-lg">Description</th>
+      <th class="table-amount-lg" (click)="sort = '-amount'" [ngClass]="{'pointer': sort !== '-amount'}">Amount <i class="fa fa-sort pull-right" [ngClass]="{'text-muted': sort !== '-amount'}"></i></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let transaction of transactions">
+    <tr *ngFor="let transaction of transactions | orderBy: sort">
       <td class="table-date-lg">{{transaction.date}}</td>
-      <td class="table-amount-lg">${{transaction.amount}}</td>
       <td class="table-description-lg">{{transaction.description}}</td>
+      <td class="table-amount-lg text-xs-right">${{transaction.amount}}</td>
     </tr>
   </tbody>
 </table>

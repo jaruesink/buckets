@@ -13,7 +13,7 @@ import { TransactionsService } from '../../../services';
         <label for="amount">Amount</label>
         <div class="input-group amount">
           <span class="input-group-addon">$</span>
-          <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="amount" placeholder="#.##" step=.01 required>
+          <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="amount" placeholder="#.##" step=.01 autocomplete="off" required>
         </div>
       </div>
       <div class="form-group description mt-1">
@@ -30,7 +30,6 @@ export class AddtransactionComponent {
   constructor(public trs: TransactionsService) {}
   addTransaction(form, firstInput) {
     firstInput.focus();
-    console.log(form);
     this.trs.addTransaction(this.key, form);
     form.reset();
   }

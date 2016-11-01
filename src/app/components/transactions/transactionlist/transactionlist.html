@@ -1,0 +1,49 @@
+<table *ngIf="transactions.length > 0" class="hidden-md-up">
+  <tr *ngFor="let transaction of transactions">
+    <td>
+      <table class="table table-bordered table-sm">
+        <thead class="thead-default">
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{transaction.date}}</td>
+            <td>${{transaction.amount}}</td>
+          </tr>
+        </tbody>
+        <thead class="thead-default">
+          <tr>
+            <th colspan="2">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">{{transaction.description}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table *ngIf="transactions.length > 0" class="table table-bordered table-sm hidden-sm-down">
+  <thead class="thead-default">
+    <tr>
+      <th class="table-date-lg">Date</th>
+      <th class="table-amount-lg">Amount</th>
+      <th class="table-description-lg">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td class="table-date-lg">{{transaction.date}}</td>
+      <td class="table-amount-lg">${{transaction.amount}}</td>
+      <td class="table-description-lg">{{transaction.description}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="transactions.length < 1">Add a transaction to start filling your bucket!</p>

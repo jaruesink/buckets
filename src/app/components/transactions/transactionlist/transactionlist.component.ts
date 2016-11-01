@@ -3,18 +3,12 @@ import { TransactionsService } from '../../../services';
 
 @Component({
   selector: 'transactionlist',
-  template: `
-    <ul>
-      <li *ngFor="let transaction of transactions">
-        {{transaction.date}}, \${{transaction.amount}}, {{transaction.description}}
-      </li>
-    </ul>
-  `,
+  templateUrl: './transactionlist.html',
   styleUrls: ['./transactionlist.scss']
 })
 export class TransactionlistComponent {
   @Input() key;
-  transactions: Array<any>;
+  transactions: Array<any> = [];
   constructor(public trs: TransactionsService) {}
   ngOnInit() {
     console.log('this bucket key', this.key);

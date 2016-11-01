@@ -13,7 +13,6 @@ import 'rxjs/Rx';
       <div class="container mt-1">
         <transactionlist [key]="bucket.$key"></transactionlist>
       <div>
-      <hr>
       <addtransaction [key]="bucket.$key"></addtransaction>
       <button class="btn btn-danger mt-1" (click)="deleteBucket(bucket)">Delete Bucket</button>
     </div>

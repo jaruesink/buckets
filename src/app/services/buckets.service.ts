@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { FirebaseService } from './firebase.service';
-import { HackService } from './hack.service';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -13,7 +12,7 @@ export class BucketService {
   buckets: Array<any> = [];
   snapshot$: Subject<any>;
   bucketsLoaded: boolean = false;
-  constructor(public fbs: FirebaseService, public hack: HackService) {
+  constructor(public fbs: FirebaseService) {
     this.snapshot$ = new Subject();
     this.subscribe((data) => {
       if ( data ) {

@@ -55,7 +55,6 @@ export class FirebaseService {
       });
     });
   }
-
   addBucket(data) {
     data.owner = this.uid;
     BUCKETSREF.push(data);
@@ -65,5 +64,24 @@ export class FirebaseService {
   }
   deleteBucket(key) {
     BUCKETSREF.child(key).remove();
+  }
+  
+  // TRANSACTION DATA
+  transactionsSubscribe(key, reader) {
+    let ref = BUCKETSREF.child(`${key}/transactions`)
+    console.log('transaction ref', ref);
+    ref.once('value', snapshot => {
+      if (snapshot.val() === null) {
+        reader(null);
+      }
+    }).then(() => {
+      ref.on('value', snapshot => {
+        console.log('transactions subscribe: ', snapshot.val());
+        reader(snapshot.val());
+      });
+    });
+  }
+  addTransaction(key, data) {
+    BUCKETSREF.child(`${key}/transactions`).push(data);
   }
 }

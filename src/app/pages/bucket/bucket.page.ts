@@ -10,8 +10,12 @@ import 'rxjs/Rx';
     <header [homeButton]="true" [title]="bucket?.name"></header>
     <loading *ngIf="!isLoaded"></loading>
     <div *ngIf="isLoaded">
-      <div class="container mt-1">{{bucket | json}}<div>
-      <addtransaction></addtransaction>
+      <div class="container mt-1">
+        <transactionlist [key]="bucket.$key"></transactionlist>
+      <div>
+      <hr>
+      <addtransaction [key]="bucket.$key"></addtransaction>
+      <button class="btn btn-danger mt-1" (click)="deleteBucket(bucket)">Delete Bucket</button>
     </div>
   `,
   styleUrls: ['./bucket.page.scss']
@@ -19,7 +23,7 @@ import 'rxjs/Rx';
 export class BucketPage {
   bucket: Object;
   isLoaded: boolean = false;;
-  constructor(public bks: BucketService, activeRoute: ActivatedRoute, rtr: Router, hack: HackService) {
+  constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, hack: HackService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
       if ( bks.snapshot[link] ) { this.bucket = bks.snapshot[link]; this.isLoaded = true; }
@@ -42,5 +46,9 @@ export class BucketPage {
   ngOnDestroy() {
     this.bks.snapshot$.unsubscribe();
     this.bks.snapshot$ = new Subject();
+  }
+  deleteBucket(bucket) {
+    this.rtr.navigate(['/']);
+    this.bks.deleteBucket(bucket);
   }
 }

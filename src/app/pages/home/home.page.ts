@@ -4,7 +4,7 @@ import { BucketService, HackService } from '../../services';
 @Component({
   selector: 'home-page',
   template: `
-    <header [isHome]="true" [title]="'Home'"></header>
+    <header [isHome]="true" [title]="'Buckets'"></header>
     <bucketlist [loaded]="bks.bucketsLoaded" [buckets]="bks.buckets"></bucketlist>
   `,
   styleUrls: ['./home.page.scss']

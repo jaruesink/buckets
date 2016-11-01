@@ -12,6 +12,14 @@ import 'rxjs/Rx';
     <loading *ngIf="!isLoaded"></loading>
     <div *ngIf="isLoaded">
       <div class="container mt-1">
+        <div class="space-between">
+          <h1>{{month}}</h1>
+          <div>
+            <button class="btn" (click)="selectPreviousMonth()">Prev</button>
+            <button class="btn" (click)="selectCurrentMonth()">Current</button>
+            <button class="btn" (click)="selectNextMonth()">Next</button>
+          </div>
+        </div>
         <transactionlist [month]="selectedMonth" [key]="bucket.$key"></transactionlist>
       <div>
       <addtransaction [key]="bucket.$key"></addtransaction>
@@ -23,7 +31,8 @@ import 'rxjs/Rx';
 export class BucketPage {
   bucket: Object;
   isLoaded: boolean = false;
-  selectedMonth: any = moment();
+  selectedMonth: any = moment().startOf('month');
+  month: string = this.selectedMonth.format('MMMM');
   constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, hack: HackService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
@@ -51,5 +60,23 @@ export class BucketPage {
   deleteBucket(bucket) {
     this.rtr.navigate(['/']);
     this.bks.deleteBucket(bucket);
+  }
+  selectCurrentMonth() {
+    console.log('begin: ', this.selectedMonth.format('YYYY-MM-DD'));
+    this.selectedMonth = moment().startOf('month');
+    this.month = this.selectedMonth.format('MMMM');
+    console.log('end: ', this.selectedMonth.format('YYYY-MM-DD'));
+  }
+  selectPreviousMonth() {
+    console.log('begin: ', this.selectedMonth.format('YYYY-MM-DD'));
+    this.selectedMonth = this.selectedMonth.subtract(1, 'months');
+    this.month = this.selectedMonth.format('MMMM');
+    console.log('end: ', this.selectedMonth.format('YYYY-MM-DD'));
+  }
+  selectNextMonth() {
+    console.log('begin: ', this.selectedMonth.format('YYYY-MM-DD'));
+    this.selectedMonth = this.selectedMonth.add(1, 'months');
+    this.month = this.selectedMonth.format('MMMM');
+    console.log('end: ', this.selectedMonth.format('YYYY-MM-DD'));
   }
 }

@@ -10,7 +10,6 @@ export class AuthService {
   isLoadingAuth: boolean = true;
   constructor(public fbs: FirebaseService, public rtr: Router, public user: UserService) {
     fbs.authSubscribe(data => {
-      console.log('auth subscribe: ', data);
       (data) ? this.processLogin(data.auth) : this.processLogout();
       this.isLoadingAuth = false;
     });

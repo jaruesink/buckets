@@ -16,9 +16,6 @@ export class TransactionlistComponent {
   ngOnChanges() {
     let current_month = this.month.format('YYYY-MM');
     let next_month = this.month.add(1, 'M').format('YYYY-MM');
-    // console.log('current month', current_month);
-    // console.log('next month', next_month);
-    // console.log('this bucket key', this.key);
     this.trs.subscribe(this.key, current_month, next_month, (data) => {
       let transactions = [];
       for (let transaction in data) {

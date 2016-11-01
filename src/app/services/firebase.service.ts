@@ -41,6 +41,7 @@ export class FirebaseService {
 
   // BUCKETS DATA
   bucketsSubscribe(reader) {
+    console.log('TODO: figure out a way to not need this subscribe');
     this.authSubscribe(data => {
       let ref = BUCKETSREF.orderByChild('owner').equalTo(this.uid);
       ref.once('value', snapshot => {
@@ -69,7 +70,6 @@ export class FirebaseService {
   // TRANSACTION DATA
   transactionsSubscribe(key, begin, end, reader) {
     let ref = BUCKETSREF.child(`${key}/transactions`).orderByChild('date').startAt(begin).endAt(end);
-    console.log('transaction ref', ref);
     ref.once('value', snapshot => {
       if (snapshot.val() === null) {
         reader(null);
@@ -83,6 +83,7 @@ export class FirebaseService {
   }
   transactionsUnsubscribe(key) {
     let ref = BUCKETSREF.child(`${key}/transactions`);
+    console.log('transactions unsubscribe:', key);
     ref.off();
   }
   addTransaction(key, data) {

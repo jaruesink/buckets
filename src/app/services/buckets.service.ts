@@ -27,7 +27,7 @@ export class BucketService {
         this.buckets = buckets;
         this.snapshot = snapshot;
         this.snapshot$.next(this.snapshot)
-        console.log('bucketlist', this.buckets);
+        console.log('Bucket Array: ', this.buckets);
       } else {
         this.buckets = null;
         this.snapshot = null;
@@ -38,7 +38,6 @@ export class BucketService {
   }
   subscribe(reader) {
     this.fbs.bucketsSubscribe(data => {
-      console.log('bucket service subscribe: ', data);
       reader(data);
     });
   }

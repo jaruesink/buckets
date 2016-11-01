@@ -11,7 +11,6 @@ export class TransactionsService {
   constructor(public fbs: FirebaseService) {}
   subscribe(key, begin, end, reader) {
     this.fbs.transactionsSubscribe(key, begin, end, data => {
-      console.log('transaction service subscribe: ', data);
       reader(data);
     });
   }

@@ -5,6 +5,10 @@
 	}
 }
 
+.flipped .card{
+	cursor: auto;
+}
+
 .card-title{
 	font-size: 18px;
 	width: 100%;
@@ -34,7 +38,7 @@ button{
 }
 
 .card-inverse{
-	background-color: #333; border-color: #333;
+	background-color: #333; border-color: #333 !important;
 }
 
 /* entire container, keeps perspective */

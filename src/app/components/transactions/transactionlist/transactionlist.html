@@ -25,8 +25,10 @@
           </tr>
           <tr *ngIf="transaction.editing">
             <td colspan="2">
-              edit transaction form goes here
-              <button class="btn btn-sm btn-danger" (click)="closeEdit($event, transaction)">close</button>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="closeEdit($event, transaction)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <edittransaction [transaction]="transaction"></edittransaction>
             </td>
           </tr>
         </tbody>
@@ -54,8 +56,10 @@
           </tr>
           <tr *ngIf="transaction.editing">
               <td colspan="3">
-                edit transaction form goes here
-                <button class="btn btn-sm btn-danger" (click)="closeEdit($event, transaction)">close</button>
+                <button type="button" class="close" aria-label="Close" (click)="closeEdit($event, transaction)">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <edittransaction [transaction]="transaction"></edittransaction>
               </td>
           </tr>
         </table>

@@ -1,0 +1,33 @@
+form{
+  @media (max-width:992px) {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  // slight fix for padding on large screens
+  .col-xs-6:last-of-type{
+    padding-left: 0;
+  }
+  @media (min-width:992px) {
+    .col-lg-6:last-of-type{
+      padding-left: 0;
+    }
+  }
+}
+input, button{
+  max-height: 38px;
+}
+.description{
+  flex: 1;
+}
+button{
+  margin: 32px 0 0 15px;
+}
+// slight fix for padding on small screens
+@media (max-width: 576px) {
+  .col-xs-6{
+    &:first-child{
+      padding-right: 0;
+    }
+  }
+}

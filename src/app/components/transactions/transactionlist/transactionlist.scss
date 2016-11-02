@@ -4,61 +4,38 @@ table{
   border-spacing: 0;
   i{font-size:12px;}
 }
-.table-date-lg, .table-amount-lg{width: 175px;}
+.table-date-lg{width: 200px;}
+.table-amount-lg{width: 175px;}
 .pointer{
    cursor: pointer;
 }
 
-// Large Screen Width Table
-table.hidden-sm-down{
-  tbody{
-    .hoverable{
-      position: relative;
-      padding: 0;
-      border: 0;
-      border-spacing: 0;
-      &:hover{
-        // border: 1px solid #0275d8;
-        box-shadow: 0 0 0 1px #0275d8;
-        z-index: 2;
-      }
-      &:not(.editing){
-        cursor: pointer;
-      }
-      &.editing{
-        cursor: default;
-        // border: 1px solid #f0ad4e;
-        box-shadow: 0 0 0 1px #f0ad4e;
-        z-index: 1;
-      }
-      & tr:last-child td {
-        // helps position the close button
-        position: relative;
-        padding: 8px;
-        .close{
-          position: absolute;
-          z-index: 1;
-          top: 2px;
-          right: 8px;
-        }
-      }
-    }
+.hoverable{
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-spacing: 0;
+  &:hover{
+    box-shadow: 0 0 0 1px #0275d8;
+    z-index: 2;
   }
-}
-
-// Small Screen Width Table
-table.hidden-md-up{
-  .table{
+  &:not(.editing){
     cursor: pointer;
-    &:hover{
-      outline: 1px solid #0275d8;
-    }
-    &:not(.editing){
-      cursor: pointer;
-    }
-    &.editing{
-      cursor: default;
-      outline: 1px solid #f0ad4e;
+  }
+  &.editing{
+    cursor: default;
+    box-shadow: 0 0 0 1px #f0ad4e;
+    z-index: 1;
+  }
+  & tr.edit-row td {
+    // helps position the close button
+    position: relative;
+    padding: 1.25rem;
+    .close{
+      position: absolute;
+      z-index: 1;
+      top: 2px;
+      right: 8px;
     }
   }
 }

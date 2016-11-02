@@ -1,7 +1,7 @@
 <table *ngIf="transactions.length > 0" class="hidden-md-up">
   <tr *ngFor="let transaction of transactions | orderBy: 'date'">
     <td>
-      <table class="table table-bordered table-sm" (click)="edit(transaction)" [ngClass]="{'editing': transaction.editing}">
+      <table class="table table-bordered table-sm hoverable" (click)="edit(transaction)" [ngClass]="{'editing': transaction.editing}">
         <thead class="thead-default">
           <tr>
             <th>Date</th>
@@ -10,7 +10,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{transaction.date}}</td>
+            <td>{{transaction.date_formatted}}</td>
             <td class="text-xs-right">${{transaction.amount}}</td>
           </tr>
         </tbody>
@@ -23,7 +23,7 @@
           <tr>
             <td colspan="2">{{transaction.description}}</td>
           </tr>
-          <tr *ngIf="transaction.editing">
+          <tr class="edit-row" *ngIf="transaction.editing">
             <td colspan="2">
               <button type="button" class="close pull-right" aria-label="Close" (click)="closeEdit($event, transaction)">
                 <span aria-hidden="true">&times;</span>
@@ -50,11 +50,11 @@
       <td class="hoverable" colspan="3" (click)="edit(transaction)" [ngClass]="{'editing': transaction.editing}">
         <table>
           <tr>
-            <td class="table-date-lg">{{transaction.date}}</td>
+            <td class="table-date-lg">{{transaction.date_formatted}}</td>
             <td class="table-description-lg">{{transaction.description}}</td>
             <td class="table-amount-lg text-xs-right">${{transaction.amount}}</td>
           </tr>
-          <tr *ngIf="transaction.editing">
+          <tr class="edit-row" *ngIf="transaction.editing">
               <td colspan="3">
                 <button type="button" class="close" aria-label="Close" (click)="closeEdit($event, transaction)">
                   <span aria-hidden="true">&times;</span>

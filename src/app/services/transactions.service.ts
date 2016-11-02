@@ -20,4 +20,7 @@ export class TransactionsService {
   addTransaction(key, form) {
     this.fbs.addTransaction(key, form.value);
   }
+  saveTransaction(bucketkey, key, form) {
+    this.fbs.saveTransaction(bucketkey, key, form.value);
+  }
 }

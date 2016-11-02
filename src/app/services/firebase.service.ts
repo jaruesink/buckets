@@ -89,4 +89,7 @@ export class FirebaseService {
   addTransaction(key, data) {
     BUCKETSREF.child(`${key}/transactions`).push(data);
   }
+  saveTransaction(bucketkey, key, data) {
+    BUCKETSREF.child(`${bucketkey}/transactions/${key}`).update(data);
+  }
 }

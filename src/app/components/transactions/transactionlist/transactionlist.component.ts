@@ -26,6 +26,9 @@ export class TransactionlistComponent {
     $event.stopPropagation();
     editing_transaction.editing = false;
   }
+  formatDate(date) {
+    return moment(date, 'YYYY-MM-DD').format('dddd, MMM. Do');
+  }
   ngOnChanges() {
     this.trs.unsubscribe(this.key);
     let current_month = moment(this.month).format('YYYY-MM');
@@ -35,7 +38,9 @@ export class TransactionlistComponent {
       let transactions = [];
       for (let transaction in data) {
         data[transaction].editing = false;
+        data[transaction].$bucketkey = this.key;
         data[transaction].$key = transaction;
+        data[transaction].date_formatted = this.formatDate(data[transaction].date);
         transactions.push(data[transaction]);
       }
       this.transactions = transactions;

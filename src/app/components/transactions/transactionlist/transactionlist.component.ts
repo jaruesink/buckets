@@ -14,8 +14,10 @@ export class TransactionlistComponent {
   transactions: Array<any> = [];
   constructor(public trs: TransactionsService) {}
   ngOnChanges() {
-    let current_month = this.month.format('YYYY-MM');
-    let next_month = this.month.add(1, 'M').format('YYYY-MM');
+    this.trs.unsubscribe(this.key);
+    let current_month = moment(this.month).format('YYYY-MM');
+    let next_month = moment(this.month).add(1, 'M').format('YYYY-MM');
+    console.log('current transactions month: ', current_month);
     this.trs.subscribe(this.key, current_month, next_month, (data) => {
       let transactions = [];
       for (let transaction in data) {

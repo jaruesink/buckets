@@ -7,32 +7,16 @@ import 'rxjs/Rx';
 
 @Component({
   selector: 'bucket-page',
-  template: `
-    <header [homeButton]="true" [title]="bucket?.name"></header>
-    <loading *ngIf="!isLoaded"></loading>
-    <div *ngIf="isLoaded">
-      <div class="container mt-1">
-        <div class="space-between">
-          <h1>{{month}}</h1>
-          <div>
-            <button class="btn" (click)="selectPreviousMonth()">Prev</button>
-            <button class="btn" (click)="selectCurrentMonth()">Current</button>
-            <button class="btn" (click)="selectNextMonth()">Next</button>
-          </div>
-        </div>
-        <transactionlist [month]="selectedMonth" [key]="bucket.$key"></transactionlist>
-      <div>
-      <addtransaction [key]="bucket.$key"></addtransaction>
-      <button class="btn btn-danger mt-1" (click)="deleteBucket(bucket)">Delete Bucket</button>
-    </div>
-  `,
+  templateUrl: 'bucket.page.html',
   styleUrls: ['./bucket.page.scss']
 })
 export class BucketPage {
   bucket: Object;
   isLoaded: boolean = false;
-  selectedMonth: any = moment().startOf('month');
+  currentMoment: any = moment();
+  selectedMonth: any = moment();
   month: string = this.selectedMonth.format('MMMM');
+  year: string = this.selectedMonth.format('YY');
   constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, hack: HackService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
@@ -62,21 +46,19 @@ export class BucketPage {
     this.bks.deleteBucket(bucket);
   }
   selectCurrentMonth() {
-    console.log('begin: ', this.selectedMonth.format('YYYY-MM-DD'));
-    this.selectedMonth = moment().startOf('month');
-    this.month = this.selectedMonth.format('MMMM');
-    console.log('end: ', this.selectedMonth.format('YYYY-MM-DD'));
+    this.selectedMonth = moment();
+    this.changeDate(this.selectedMonth);
   }
   selectPreviousMonth() {
-    console.log('begin: ', this.selectedMonth.format('YYYY-MM-DD'));
-    this.selectedMonth = this.selectedMonth.subtract(1, 'months');
-    this.month = this.selectedMonth.format('MMMM');
-    console.log('end: ', this.selectedMonth.format('YYYY-MM-DD'));
+    this.selectedMonth = moment(this.selectedMonth).subtract(1, 'months');
+    this.changeDate(this.selectedMonth);
   }
   selectNextMonth() {
-    console.log('begin: ', this.selectedMonth.format('YYYY-MM-DD'));
-    this.selectedMonth = this.selectedMonth.add(1, 'months');
-    this.month = this.selectedMonth.format('MMMM');
-    console.log('end: ', this.selectedMonth.format('YYYY-MM-DD'));
+    this.selectedMonth = moment(this.selectedMonth).add(1, 'months');
+    this.changeDate(this.selectedMonth);
+  }
+  changeDate(date) {
+    this.month = date.format('MMMM');
+    this.year = date.format('YY')
   }
 }

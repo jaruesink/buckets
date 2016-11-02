@@ -1,0 +1,21 @@
+<header [homeButton]="true" [title]="bucket?.name"></header>
+<loading *ngIf="!isLoaded"></loading>
+<div *ngIf="isLoaded">
+  <div class="container mt-1">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1>{{month}} <sup class="text-muted">‘{{year}}</sup></h1>
+      </div>
+      <div class="col-sm-6">
+        <div class="month-controls pull-right">
+          <button class="btn btn-warning" (click)="selectPreviousMonth()"><i class="fa fa-backward" aria-hidden="true"></i></button>
+          <button class="btn btn-primary" (click)="selectCurrentMonth()" [ngClass]="{'disabled': selectedMonth.endOf('month').format('MM-YY') === currentMoment.endOf('month').format('MM-YY')}"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+          <button class="btn btn-warning" (click)="selectNextMonth()"><i class="fa fa-forward" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <transactionlist class="mt-1" [month]="selectedMonth" [key]="bucket.$key"></transactionlist>
+  <div>
+  <addtransaction [key]="bucket.$key"></addtransaction>
+  <button class="btn btn-danger mt-1" (click)="deleteBucket(bucket)">Delete Bucket</button>
+</div>

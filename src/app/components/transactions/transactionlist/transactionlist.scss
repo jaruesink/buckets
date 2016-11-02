@@ -12,13 +12,19 @@ table{
 // Large Screen Width Table
 table.hidden-sm-down{
   tbody{
-    cursor: pointer;
     .hoverable{
       padding: 0;
       border: 0;
       border-spacing: 0;
       &:hover{
         outline: 1px solid #0275d8;
+      }
+      &:not(.editing){
+        cursor: pointer;
+      }
+      &.editing{
+        cursor: default;
+        outline: 1px solid #f0ad4e;
       }
     }
   }
@@ -30,6 +36,13 @@ table.hidden-md-up{
     cursor: pointer;
     &:hover{
       outline: 1px solid #0275d8;
+    }
+    &:not(.editing){
+      cursor: pointer;
+    }
+    &.editing{
+      cursor: default;
+      outline: 1px solid #f0ad4e;
     }
   }
 }

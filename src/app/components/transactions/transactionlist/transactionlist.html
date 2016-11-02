@@ -1,7 +1,7 @@
 <table *ngIf="transactions.length > 0" class="hidden-md-up">
   <tr *ngFor="let transaction of transactions | orderBy: 'date'">
     <td>
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-sm" (click)="edit(transaction)" [ngClass]="{'editing': transaction.editing}">
         <thead class="thead-default">
           <tr>
             <th>Date</th>
@@ -23,28 +23,16 @@
           <tr>
             <td colspan="2">{{transaction.description}}</td>
           </tr>
+          <tr *ngIf="transaction.editing">
+            <td colspan="2">
+              <button class="btn btn-sm btn-danger" (click)="closeEdit($event, transaction)">close</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </td>
   </tr>
 </table>
-
-<!-- <table *ngIf="transactions.length > 0" class="table table-bordered table-sm hidden-sm-down">
-  <thead class="thead-default">
-    <tr>
-      <th class="table-date-lg" (click)="sort = 'date'" [ngClass]="{'pointer': sort !== 'date'}">Date <i class="fa fa-sort pull-right" [ngClass]="{'text-muted': sort !== 'date'}"></i></th>
-      <th class="table-description-lg">Description</th>
-      <th class="table-amount-lg" (click)="sort = '-amount'" [ngClass]="{'pointer': sort !== '-amount'}">Amount <i class="fa fa-sort pull-right" [ngClass]="{'text-muted': sort !== '-amount'}"></i></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let transaction of transactions | orderBy: sort">
-      <td class="table-date-lg">{{transaction.date}}</td>
-      <td class="table-description-lg">{{transaction.description}}</td>
-      <td class="table-amount-lg text-xs-right">${{transaction.amount}}</td>
-    </tr>
-  </tbody>
-</table> -->
 
 <table *ngIf="transactions.length > 0" class="table table-bordered table-sm hidden-sm-down">
   <thead class="thead-default">
@@ -56,7 +44,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let transaction of transactions | orderBy: sort">
-      <td class="hoverable" colspan="3" (click)="transaction.editing != transaction.editing">
+      <td class="hoverable" colspan="3" (click)="edit(transaction)" [ngClass]="{'editing': transaction.editing}">
         <table>
           <tr>
             <td class="table-date-lg">{{transaction.date}}</td>
@@ -65,7 +53,7 @@
           </tr>
           <tr *ngIf="transaction.editing">
               <td colspan="3">
-                row to edit.
+                <button class="btn btn-sm btn-danger" (click)="closeEdit($event, transaction)">close</button>
               </td>
           </tr>
         </table>

@@ -21,9 +21,11 @@ export class TransactionlistComponent {
     this.trs.subscribe(this.key, current_month, next_month, (data) => {
       let transactions = [];
       for (let transaction in data) {
+        data[transaction].$key = transaction;
         transactions.push(data[transaction]);
       }
       this.transactions = transactions;
+      console.log('Transaction Array: ', this.transactions);
     });
   }
   ngOnDestroy() {

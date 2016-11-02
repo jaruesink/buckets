@@ -1,7 +1,35 @@
-table{width: 100%;
+table{
+  border-collapse: separate;
+  width: 100%;
+  border-spacing: 0;
   i{font-size:12px;}
 }
 .table-date-lg, .table-amount-lg{width: 175px;}
 .pointer{
    cursor: pointer;
+}
+
+// Large Screen Width Table
+table.hidden-sm-down{
+  tbody{
+    cursor: pointer;
+    .hoverable{
+      padding: 0;
+      border: 0;
+      border-spacing: 0;
+      &:hover{
+        outline: 1px solid #0275d8;
+      }
+    }
+  }
+}
+
+// Small Screen Width Table
+table.hidden-md-up{
+  .table{
+    cursor: pointer;
+    &:hover{
+      outline: 1px solid #0275d8;
+    }
+  }
 }

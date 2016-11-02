@@ -3,14 +3,16 @@
 <div *ngIf="isLoaded">
   <div class="container mt-1">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-9">
         <h1>{{month}} <sup class="text-muted">‘{{year}}</sup></h1>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         <div class="month-controls pull-right">
-          <button class="btn btn-warning" (click)="selectPreviousMonth()"><i class="fa fa-backward" aria-hidden="true"></i></button>
-          <button class="btn btn-primary" (click)="selectCurrentMonth()" [ngClass]="{'disabled': selectedMonth.endOf('month').format('MM-YY') === currentMoment.endOf('month').format('MM-YY')}"><i class="fa fa-calendar" aria-hidden="true"></i></button>
-          <button class="btn btn-warning" (click)="selectNextMonth()"><i class="fa fa-forward" aria-hidden="true"></i></button>
+          <button class="btn btn-warning btn-sm" (click)="selectPreviousMonth()"><i class="fa fa-backward" aria-hidden="true"></i></button>
+          <button class="btn btn-primary btn-sm" (click)="selectCurrentMonth()" [disabled]="selectedMonth.endOf('month').format('MM-YY') === currentMoment.endOf('month').format('MM-YY')">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-warning btn-sm" (click)="selectNextMonth()"><i class="fa fa-forward" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>

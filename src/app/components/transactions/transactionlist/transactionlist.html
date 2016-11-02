@@ -11,7 +11,7 @@
         <tbody>
           <tr>
             <td>{{transaction.date_formatted}}</td>
-            <td class="text-xs-right">${{transaction.amount}}</td>
+            <td class="text-xs-right">{{transaction.amount | money}}</td>
           </tr>
         </tbody>
         <thead class="thead-default">
@@ -52,7 +52,7 @@
           <tr>
             <td class="table-date-lg">{{transaction.date_formatted}}</td>
             <td class="table-description-lg">{{transaction.description}}</td>
-            <td class="table-amount-lg text-xs-right">${{transaction.amount}}</td>
+            <td class="table-amount-lg text-xs-right">{{transaction.amount | money}}</td>
           </tr>
           <tr class="edit-row" *ngIf="transaction.editing">
               <td colspan="3">

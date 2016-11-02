@@ -18,8 +18,8 @@ export const ComponentsList = [
 export const DirectivesList = [];
 
 //Pipes
-import { OrderByPipe } from './pipes';
-export const PipesList = [ OrderByPipe ]
+import { OrderByPipe, MoneyPipe } from './pipes';
+export const PipesList = [ OrderByPipe, MoneyPipe ]
 
 //Services
 import {

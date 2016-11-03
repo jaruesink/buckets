@@ -2,23 +2,23 @@
   <tr *ngFor="let transaction of transactions | orderBy: 'date'">
     <td>
       <table class="table table-bordered table-sm hoverable" (click)="edit(transaction)" [ngClass]="{'editing': transaction.editing}">
-        <thead class="thead-default">
+        <!-- <thead class="thead-default">
           <tr>
             <th>Date</th>
             <th>Amount</th>
           </tr>
-        </thead>
+        </thead> -->
         <tbody>
           <tr>
-            <td>{{transaction.date_formatted}}</td>
-            <td class="text-xs-right">{{transaction.amount | money}}</td>
+            <td class="table-date-sm">{{transaction.date_formatted}}</td>
+            <td class="text-xs-right table-amount-sm">{{transaction.amount | money}}</td>
           </tr>
         </tbody>
-        <thead class="thead-default">
+        <!-- <thead class="thead-default">
           <tr>
             <th colspan="2">Description</th>
           </tr>
-        </thead>
+        </thead> -->
         <tbody>
           <tr>
             <td colspan="2">{{transaction.description}}</td>

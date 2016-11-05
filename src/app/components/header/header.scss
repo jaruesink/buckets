@@ -1,7 +1,11 @@
 a.navbar-brand{
+  position: relative;
+  top: 4px;
+  left: 15px;
   color: white;
   font-weight: 100;
   letter-spacing: .08em;
+  float: none;
   &:hover, &:active {
     color: white;
   }

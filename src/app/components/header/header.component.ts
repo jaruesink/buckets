@@ -6,11 +6,13 @@ import { AuthService, UserService } from '../../services';
   selector: 'header',
   template: `
   <nav class="navbar navbar-dark bg-inverse space-between navbar-full">
-    <button *ngIf="homeButton" class="btn btn-primary" (click)="goHome()"><i class="fa fa-home" aria-hidden="true"></i></button>
-    <a class="navbar-brand">
-      <i *ngIf="isHome" class="fa fa-home" aria-hidden="true"></i>
-      {{title}}
-    </a>
+    <div>
+      <button *ngIf="homeButton" class="btn btn-primary" (click)="goHome()"><i class="fa fa-home" aria-hidden="true"></i></button>
+      <a class="navbar-brand">
+        <i *ngIf="isHome" class="fa fa-home" aria-hidden="true"></i>
+        {{title}}
+      </a>
+    </div>
     <div>
       <img [src]="user.me?.photo" width="38" height="38" class="d-inline-block align-top rounded">
       <button class="btn btn-danger" (click)="auth.logout()">Logout</button>

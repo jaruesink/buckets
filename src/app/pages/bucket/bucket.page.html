@@ -1,6 +1,8 @@
 <header [homeButton]="true" [title]="bucket?.name"></header>
 <loading *ngIf="!isLoaded"></loading>
 <div *ngIf="isLoaded">
+
+  <circlechart></circlechart>
   <div class="container mt-1">
     <div class="row">
       <div class="col-sm-7">

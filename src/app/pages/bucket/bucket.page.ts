@@ -22,13 +22,16 @@ export class BucketPage {
   constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, hack: HackService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
-      if ( bks.snapshot[link] ) { this.bucket = bks.snapshot[link]; this.isLoaded = true; }
+      if ( bks.snapshot[link] ) {
+        this.bucket = bks.snapshot[link];
+        this.isLoaded = true;
+        this.budget = bks.snapshot[link].budget;
+      }
       bks.snapshot$.subscribe((snapshot) => {
         if (snapshot[link]) {
           this.bucket = snapshot[link];
-          this.budget = snapshot[link].budget;
-          console.log('budget', this.budget);
           this.isLoaded = true;
+          this.budget = bks.snapshot[link].budget;
         } else {
           rtr.navigate(['/']);
         }

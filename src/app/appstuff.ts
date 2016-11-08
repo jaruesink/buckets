@@ -23,10 +23,10 @@ export const PipesList = [ OrderByPipe, MoneyPipe ]
 
 //Services
 import {
-  FirebaseService, AuthService, UserService, BucketService, HackService,
+  FirebaseService, AuthService, UserService, BucketService,
   TransactionsService
 } from './services';
 export const ServicesList = [
-  FirebaseService, AuthService, UserService, BucketService, HackService,
+  FirebaseService, AuthService, UserService, BucketService,
   TransactionsService
 ];

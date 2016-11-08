@@ -1,7 +1,7 @@
 <loading *ngIf="!isLoaded"></loading>
-<header *ngIf="isLoaded" [homeButton]="true" [title]="bucket?.name"></header>
+<header *ngIf="isLoaded" [homeButton]="true" [title]="bucket.name"></header>
 <div class="pt-3" *ngIf="isLoaded">
-  <circlechart [total]="total" [budget]="budget"></circlechart>
+  <circlechart [total]="total" [budget]="budget" [key]="bucket.$key"></circlechart>
   <div class="container mt-3">
     <div class="row">
       <div class="col-sm-7">

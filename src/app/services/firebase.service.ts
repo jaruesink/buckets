@@ -10,15 +10,19 @@ import { firebaseConfig } from '../firebase';
 //Services
 import { UserService } from './user.service';
 
-const FIRE = firebase.initializeApp(firebaseConfig)
-const FIREAUTH = FIRE.auth();
-const FIREDB = FIRE.database();
-const BUCKETSREF = FIREDB.ref('/buckets');
-
 @Injectable()
 export class FirebaseService {
   uid: string;
-  constructor(public af: AngularFire) {}
+  FIRE: any;
+  FIREAUTH: any;
+  FIREDB: any;
+  BUCKETSREF: any;
+  constructor(public af: AngularFire) {
+    this.FIRE = firebase.initializeApp(firebaseConfig)
+    this.FIREAUTH = this.FIRE.auth();
+    this.FIREDB = this.FIRE.database();
+    this.BUCKETSREF = this.FIREDB.ref('/buckets');
+  }
 
   // AUTH DATA
   authSubscribe(reader) {
@@ -43,7 +47,7 @@ export class FirebaseService {
   bucketsSubscribe(reader) {
     console.log('TODO: figure out a way to not need this subscribe');
     this.authSubscribe(data => {
-      let ref = BUCKETSREF.orderByChild('owner').equalTo(this.uid);
+      let ref = this.BUCKETSREF.orderByChild('owner').equalTo(this.uid);
       ref.once('value', snapshot => {
         if (snapshot.val() === null) {
           reader(null);
@@ -58,18 +62,18 @@ export class FirebaseService {
   }
   addBucket(data) {
     data.owner = this.uid;
-    BUCKETSREF.push(data);
+    this.BUCKETSREF.push(data);
   }
   saveBucket({key, link, name, budget}) {
-    BUCKETSREF.child(key).update({link, name, budget});
+    this.BUCKETSREF.child(key).update({link, name, budget});
   }
   deleteBucket(key) {
-    BUCKETSREF.child(key).remove();
+    this.BUCKETSREF.child(key).remove();
   }
   
   // TRANSACTION DATA
   transactionsSubscribe(key, begin, end, reader) {
-    let ref = BUCKETSREF.child(`${key}/transactions`).orderByChild('date').startAt(begin).endAt(end);
+    let ref = this.BUCKETSREF.child(`${key}/transactions`).orderByChild('date').startAt(begin).endAt(end);
     ref.once('value', snapshot => {
       if (snapshot.val() === null) {
         reader(null);
@@ -82,14 +86,14 @@ export class FirebaseService {
     });
   }
   transactionsUnsubscribe(key) {
-    let ref = BUCKETSREF.child(`${key}/transactions`);
+    let ref = this.BUCKETSREF.child(`${key}/transactions`);
     console.log('transactions unsubscribe:', key);
     ref.off();
   }
   addTransaction(key, data) {
-    BUCKETSREF.child(`${key}/transactions`).push(data);
+    this.BUCKETSREF.child(`${key}/transactions`).push(data);
   }
   saveTransaction(bucketkey, key, data) {
-    BUCKETSREF.child(`${bucketkey}/transactions/${key}`).update(data);
+    this.BUCKETSREF.child(`${bucketkey}/transactions/${key}`).update(data);
   }
 }

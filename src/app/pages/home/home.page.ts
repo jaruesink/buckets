@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BucketService, HackService } from '../../services';
+import { BucketService } from '../../services';
 
 @Component({
   selector: 'home-page',
@@ -10,12 +10,5 @@ import { BucketService, HackService } from '../../services';
   styleUrls: ['./home.page.scss']
 })
 export class HomePage {
-  constructor(public bks: BucketService, public hack: HackService) {
-    // hack for triggering data refresh
-    if ( bks.buckets.length < 1 || bks.buckets === null ) {
-      let interval = setInterval(() => {
-        hack.isLoaded(bks.buckets, interval);
-      }, 10)
-    };
-  }
+  constructor(public bks: BucketService) {}
 }

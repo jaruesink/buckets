@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BucketService, HackService } from '../../services';
+import { BucketService } from '../../services';
 import { Subject } from 'rxjs/Subject';
 import * as moment from 'moment';
 import 'rxjs/Rx';
@@ -19,7 +19,7 @@ export class BucketPage {
   year: string = this.selectedMonth.format('YY');
   total: number = 0;
   budget: number = 100;
-  constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, hack: HackService) {
+  constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
       if ( bks.snapshot[link] ) {
@@ -37,12 +37,6 @@ export class BucketPage {
         }
       });
     });
-    // hack for triggering data refresh
-    if ( bks.buckets.length < 1 ) {
-      let interval = setInterval(() => {
-        hack.isLoaded(bks.buckets, interval);
-      }, 10)
-    };
   }
   ngOnDestroy() {
     this.bks.snapshot$.unsubscribe();

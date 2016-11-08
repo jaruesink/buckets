@@ -6,7 +6,7 @@
       </button>
       <div class="card-block">
         <h4 class="card-title">{{bucket?.name}}</h4>
-        <circlechart [total]="total" [budget]="bucket.budget" [size]="'small'"></circlechart>
+        <circlechart [total]="total" [budget]="bucket.budget" [size]="'small'" [key]="bucket.$key"></circlechart>
       </div>
     </div>
     <div class="card card-back card-inverse">

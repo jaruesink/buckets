@@ -1,48 +1,35 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { BucketService } from '../../../services';
+import { BucketService, TransactionsService } from '../../../services';
+import * as moment from 'moment';
 
 @Component({
   selector: 'bucketcard',
-  template: `
-    <div class="flip-container mt-1" [ngClass]="{'flipped': isFlipped}">
-      <div class="flipper">
-        <div class="card card-front" (click)="enterBucket()">
-          <button class="edit-bucketcard btn btn-primary btn-small pull-right" (click)="flip($event)">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-          <div class="card-block">
-            <h4 class="card-title">{{bucket?.name}}</h4>
-          </div>
-        </div>
-        <div class="card card-back card-inverse">
-        <button class="edit-bucketcard btn btn-danger btn-small pull-right" (click)="flip()">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
-          <div class="card-block">
-          <form (ngSubmit)="saveBucket(saveBucketForm, firstInput)" #saveBucketForm="ngForm">
-            <div class="form-group">
-              <label for="name">Bucket Name</label>
-              <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="bucket.name" autocomplete="off" required>
-            </div>
-            <div class="form-group">
-              <label for="budget">Monthly Budget</label>
-              <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="bucket.budget" autocomplete="off" required>
-            </div>
-            <button type="submit" class="btn btn-success btn-block">Save Bucket</button>
-          </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: 'bucketcard.html',
   styleUrls: ['./bucketcard.scss']
 })
 export class BucketcardComponent {
   @Input() bucket;
   isFlipped: boolean = false;
   currentName: string;
-  constructor(public bks: BucketService, public router: Router) {}
+  total: number;
+  constructor(public bks: BucketService, public router: Router, public trs: TransactionsService) {}
+  ngOnChanges() {
+    this.trs.unsubscribe(this.bucket.$key);
+    let current_month = moment().format('YYYY-MM');
+    let next_month = moment().add(1, 'M').format('YYYY-MM');
+    console.log('current transactions month: ', current_month);
+    this.trs.subscribe(this.bucket.$key, current_month, next_month, (data) => {
+      let total = 0;
+      for (let transaction in data) {
+        total += data[transaction].amount;
+      }
+      this.total = total;
+    });
+  }
+  ngOnDestroy() {
+    this.trs.unsubscribe(this.bucket.$key);
+  }
   flip(event = null) {
     event ? event.stopPropagation() : null;
     this.isFlipped = !this.isFlipped;

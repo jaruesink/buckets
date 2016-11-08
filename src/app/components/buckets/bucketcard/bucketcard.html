@@ -1,0 +1,31 @@
+<div class="flip-container mt-1" [ngClass]="{'flipped': isFlipped}">
+  <div class="flipper">
+    <div class="card card-front" (click)="enterBucket()">
+      <button class="edit-bucketcard btn btn-primary btn-small pull-right" (click)="flip($event)">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      </button>
+      <div class="card-block">
+        <h4 class="card-title">{{bucket?.name}}</h4>
+        <circlechart [total]="total" [budget]="bucket.budget" [size]="'small'"></circlechart>
+      </div>
+    </div>
+    <div class="card card-back card-inverse">
+    <button class="edit-bucketcard btn btn-danger btn-small pull-right" (click)="flip()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+      <div class="card-block">
+      <form (ngSubmit)="saveBucket(saveBucketForm, firstInput)" #saveBucketForm="ngForm">
+        <div class="form-group">
+          <label for="name">Bucket Name</label>
+          <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="bucket.name" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="budget">Monthly Budget</label>
+          <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="bucket.budget" autocomplete="off" required>
+        </div>
+        <button type="submit" class="btn btn-success btn-block">Save Bucket</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

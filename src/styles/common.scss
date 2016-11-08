@@ -1,15 +1,37 @@
+.viz-container{
+  margin: 0 auto;
+  position: relative;
+
+  .viz-summary{
+    text-align: center;
+    width: 100%;
+    position: absolute; bottom: 130px;
+  }
+
+  &.small{
+    top: -15px;
+
+    .viz-summary{
+      font-size: 10px;
+      position: absolute; bottom: 80px;
+    }  
+  }
+}
+
 .vz-background{
-  fill: white;
-  fill-opacity: 0;
+  display: none;
+  // fill: white;
+  // fill-opacity: 0;
 }
 .vz-radial_progress-back-circle{
-  fill: white;
-  fill-opacity: 0;
+  display: none;
+  // fill: white;
+  // fill-opacity: 0;
 }
 .vz-radial_progress-track{
-  fill: white;
-  fill-opacity: 0;
+  fill: #eceeef;
 }
 .vz-radial_progress-label{
-  fill: black !important;
+  display: none;
+  // fill: white !important;
 }

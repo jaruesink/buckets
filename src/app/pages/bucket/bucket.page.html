@@ -1,8 +1,8 @@
-<header [homeButton]="true" [title]="bucket?.name"></header>
 <loading *ngIf="!isLoaded"></loading>
+<header *ngIf="isLoaded" [homeButton]="true" [title]="bucket?.name"></header>
 <div *ngIf="isLoaded">
 
-  <circlechart></circlechart>
+  <circlechart [total]="total" [budget]="budget"></circlechart>
   <div class="container mt-1">
     <div class="row">
       <div class="col-sm-7">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <transactionlist class="mt-1" [month]="selectedMonth" [key]="bucket.$key"></transactionlist>
+    <transactionlist class="mt-1" [month]="selectedMonth" [key]="bucket.$key" (total)="updateTotal($event)"></transactionlist>
   <div>
   <addtransaction [key]="bucket.$key"></addtransaction>
 </div>

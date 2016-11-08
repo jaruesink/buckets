@@ -17,6 +17,8 @@ export class BucketPage {
   selectedMonth: any = moment();
   month: string = this.selectedMonth.format('MMMM');
   year: string = this.selectedMonth.format('YY');
+  total: number = 0;
+  budget: number = 100;
   constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, hack: HackService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
@@ -24,6 +26,8 @@ export class BucketPage {
       bks.snapshot$.subscribe((snapshot) => {
         if (snapshot[link]) {
           this.bucket = snapshot[link];
+          this.budget = snapshot[link].budget;
+          console.log('budget', this.budget);
           this.isLoaded = true;
         } else {
           rtr.navigate(['/']);
@@ -60,5 +64,8 @@ export class BucketPage {
   changeDate(date) {
     this.month = date.format('MMMM');
     this.year = date.format('YY')
+  }
+  updateTotal(total) {
+    this.total = total;
   }
 }

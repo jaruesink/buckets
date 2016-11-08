@@ -54,7 +54,6 @@ export class CircleChartComponent {
   
   ngOnChanges() {
     if (this.viz) {
-      console.log(this.viz);
       this.viz.data(this.total)
               .max(this.budget)
               .update();

@@ -13,7 +13,12 @@ export class BucketcardComponent {
   isFlipped: boolean = false;
   currentName: string;
   total: number;
+  name: string;
+  budget: number;
   constructor(public bks: BucketService, public router: Router, public trs: TransactionsService) {}
+  ngOnInit() {
+    this.resetFormModel();
+  }
   ngOnChanges() {
     this.trs.unsubscribe(this.bucket.$key);
     let current_month = moment().format('YYYY-MM');
@@ -30,8 +35,13 @@ export class BucketcardComponent {
   ngOnDestroy() {
     this.trs.unsubscribe(this.bucket.$key);
   }
+  resetFormModel() {
+    this.name = this.bucket.name;
+    this.budget = this.bucket.budget;
+  }
   flip(event = null) {
     event ? event.stopPropagation() : null;
+    this.resetFormModel();
     this.isFlipped = !this.isFlipped;
     if (this.isFlipped) {
       this.currentName = this.bucket.name;

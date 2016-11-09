@@ -17,11 +17,11 @@
       <form (ngSubmit)="saveBucket(saveBucketForm, firstInput)" #saveBucketForm="ngForm">
         <div class="form-group">
           <label for="name">Bucket Name</label>
-          <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="bucket.name" autocomplete="off" required>
+          <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="name" autocomplete="off" required>
         </div>
         <div class="form-group">
           <label for="budget">Monthly Budget</label>
-          <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="bucket.budget" autocomplete="off" required>
+          <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="budget" autocomplete="off" min=1 required>
         </div>
         <button type="submit" class="btn btn-success btn-block">Save Bucket</button>
       </form>

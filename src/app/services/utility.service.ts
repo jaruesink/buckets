@@ -11,6 +11,8 @@ export class UtilityService {
   constructor() {}
   overlayClick() {
     this.overlay = false;
-    this.drawer = false;
+    setTimeout(() => {
+      this.drawer = false;
+    }, 600);
   }
 }

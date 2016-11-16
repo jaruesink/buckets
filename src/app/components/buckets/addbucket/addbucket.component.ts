@@ -17,7 +17,9 @@ export class AddbucketComponent {
     console.log('testing');
   }
   hideDrawer() {
-    this.utils.drawer = false;
     this.utils.overlay = false;
+    setTimeout(() => {
+      this.utils.drawer = false;
+    }, 1000);
   }
 }

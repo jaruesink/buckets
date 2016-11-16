@@ -9,13 +9,20 @@ import { AuthService, FirebaseService, UtilityService } from './services'
     </div>
     <div [hidden]="auth.isLoadingAuth">
       <router-outlet></router-outlet>
-      <div *ngIf="utils.overlay" id="overlay" (click)="utils.overlayClick()"></div>
+    </div>
+    <div
+    (click)="utils.overlayClick()"
+    class="animated"
+    *ngIf="utils.drawer"
+    [ngClass]="{
+      'fadeIn': utils.overlay,
+      'fadeOut': !utils.overlay && utils.drawer
+    }"
+    id="overlay">
     </div>
   `,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public auth: AuthService, public utils: UtilityService) {
-
-  }
+  constructor(public auth: AuthService, public utils: UtilityService) {}
 }

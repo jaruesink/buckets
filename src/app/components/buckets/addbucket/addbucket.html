@@ -2,12 +2,18 @@
   <i class="fa fa-plus" aria-hidden="true"></i>
 </button>
 
-<div *ngIf="utils.drawer" id="addbucketdrawer">
+<div *ngIf="utils.drawer" id="addbucketdrawer"
+  class="animated"
+  [ngClass]="{
+    'fadeInUp': utils.overlay,
+    'fadeOutDown': !utils.overlay && utils.drawer
+  }"
+>
   <div class="nav navbar-dark bg-inverse navbar-full">
     <button class="btn-close btn btn-danger btn-small pull-right" (click)="hideDrawer()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
-    <div class="container p-1">
+    <div class="container py-2">
       <form (ngSubmit)="bks.addBucket(addBucketForm, firstInput)" #addBucketForm="ngForm">
         <div class="form-group">
           <label for="name">Bucket Name</label>

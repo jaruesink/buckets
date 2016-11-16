@@ -20,6 +20,6 @@ export class AddbucketComponent {
     this.utils.overlay = false;
     setTimeout(() => {
       this.utils.drawer = false;
-    }, 1000);
+    }, 300);
   }
 }

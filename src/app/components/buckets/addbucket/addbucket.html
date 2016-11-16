@@ -1,4 +1,9 @@
-<button *ngIf="!utils.drawer" id="addbucketbutton" class="btn btn-success btn-round"  (click)="showDrawer()">
+<button *ngIf="!utils.drawer"
+  class="animated btn btn-success btn-round"
+  [ngClass]="{
+    'fadeIn': !utils.overlay
+  }"
+id="addbucketbutton" (click)="showDrawer()">
   <i class="fa fa-plus" aria-hidden="true"></i>
 </button>
 
@@ -26,10 +31,16 @@
             <option value="savings">Savings</option>
           </select>
         </div>
-        <div class="form-group">
+
+        <div *ngIf="type === 'monthly'" class="form-group">
           <label for="budget">Monthly Budget</label>
           <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="budget" autocomplete="off" min=1 required>
         </div>
+        <div *ngIf="type === 'savings'" class="form-group">
+          <label for="budget">Savings Goal</label>
+          <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="budget" autocomplete="off" min=1 required>
+        </div>
+
         <button type="submit" class="btn btn-success btn-block">Add Bucket</button>
       </form>
     </div>

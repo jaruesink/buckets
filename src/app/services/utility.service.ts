@@ -13,6 +13,6 @@ export class UtilityService {
     this.overlay = false;
     setTimeout(() => {
       this.drawer = false;
-    }, 600);
+    }, 300);
   }
 }

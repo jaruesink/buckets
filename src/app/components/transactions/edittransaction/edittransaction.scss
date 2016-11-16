@@ -1,7 +1,8 @@
 form{
+  margin-top: 24px;
   @media (max-width:992px) {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 24px auto 0 auto;
   }
 }
 input, button{
@@ -10,7 +11,12 @@ input, button{
 .description{
   flex: 1;
 }
-button{
+button.btn-danger{
+  position: absolute;
+  top: 8px; 
+  left: 8px;
+}
+button.btn-success{
   margin: 32px 0 0 15px;
 }
 // slight fix for padding on large screens

@@ -12,9 +12,9 @@
     top: -15px;
 
     .viz-summary{
-      font-size: 10px;
-      position: absolute; bottom: 80px;
-    }  
+      font-size: 12px;
+      position: absolute; bottom: 94px;
+    }
   }
 }
 
@@ -34,4 +34,11 @@
 .vz-radial_progress-label{
   display: none;
   // fill: white !important;
+}
+
+.btn-close{
+	position: absolute;
+	top: 0; right: 0;
+	margin: 6px 6px 0 0;
+	padding: 0.15rem .35rem;
 }

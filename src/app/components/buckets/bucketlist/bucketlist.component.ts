@@ -9,7 +9,6 @@ import { Component, Input } from '@angular/core';
       <li *ngFor="let bucket of buckets">
         <bucketcard [bucket]="bucket"></bucketcard>
       </li>
-      <addbucket></addbucket>
       <li class="fake-li" aria-hidden="true"></li>
       <li class="fake-li" aria-hidden="true"></li>
       <li class="fake-li" aria-hidden="true"></li>

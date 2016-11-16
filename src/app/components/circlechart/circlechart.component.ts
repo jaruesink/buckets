@@ -36,17 +36,19 @@ export class CircleChartComponent {
             .capRadius(1)
             .startAngle(220)        // Angle where progress bar starts
             .endAngle(140)          // Angle where the progress bar stops
-            .arcThickness(.04)      // The thickness of the arc (as a ratio of radius)
             .label(function (d,i) { // The 'label' property allows us to use a dynamic function for labeling.
               return d3.format('$,.2f')(d);
             });
 
+    let width;
     if (this.size === 'small') {
-      this.viz_container.style('width', '180px').style('height','180px');
-      this.viz.width(180).height(180).radius(180/2.2).arcThickness(.07);
+      width = 214;
+      this.viz.width(width).height(width).radius(width/2.2).arcThickness(.04);
     } else {
-      this.viz_container.style('width', '300px').style('height','300px');
+      width = 300;
+      this.viz.width(width).height(width).radius(width/2.2).arcThickness(.07);
     }
+    this.viz_container.style('width', `${width}px`).style('height', `${width}px`);
 
   }
 

@@ -6,6 +6,7 @@ import { BucketService } from '../../services';
   template: `
     <header [isHome]="true" [title]="'Buckets'"></header>
     <bucketlist [loaded]="bks.bucketsLoaded" [buckets]="bks.buckets"></bucketlist>
+    <addbucket></addbucket>
   `,
   styleUrls: ['./home.page.scss']
 })

@@ -11,14 +11,14 @@ import { Component, Input, ViewChild } from '@angular/core';
       <div class="viz-summary">
         <span class="viz-total">{{total | money}}</span>
         <span class="viz-divider"> / </span>
-        <span class="viz-budget">{{budget | money}}</span>
+        <span class="viz-budget">{{amount | money}}</span>
       </div>
     </div>
   `,
   styleUrls: ['./circlechart.scss']
 })
 export class CircleChartComponent {
-  @Input() budget: number;
+  @Input() amount: number;
   @Input() total: number;
   @Input() size: string;
   @Input() key: string;
@@ -30,9 +30,9 @@ export class CircleChartComponent {
 
     this.viz_container = d3.selectAll('.viz-container');
     this.viz = vizuly.component.radial_progress(document.getElementById(`chart-container-${this.key}`));
-    this.viz.data(0)
+    this.viz.data(.01)
             .min(0)
-            .max(100)
+            .max(this.amount)
             .capRadius(1)
             .startAngle(220)        // Angle where progress bar starts
             .endAngle(140)          // Angle where the progress bar stops
@@ -49,13 +49,13 @@ export class CircleChartComponent {
       this.viz.width(width).height(width).radius(width/2.2).arcThickness(.07);
     }
     this.viz_container.style('width', `${width}px`).style('height', `${width}px`);
-
+    this.viz.update();
   }
 
   ngOnChanges() {
     if (this.viz) {
       this.viz.data(this.total)
-              .max(this.budget)
+              .max(this.amount)
               .update();
     }
   }

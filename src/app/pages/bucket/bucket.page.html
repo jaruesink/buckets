@@ -1,25 +1,31 @@
 <loading *ngIf="!isLoaded"></loading>
 <header *ngIf="isLoaded" [homeButton]="true" [title]="bucket.name"></header>
 <div class="pt-3" *ngIf="isLoaded">
-  <circlechart [total]="total" [budget]="budget" [key]="bucket.$key"></circlechart>
   <div class="container mt-3">
-    <div class="row">
-      <div class="col-sm-7">
-        <h1>{{month}} <sup class="text-muted">‘{{year}}</sup></h1>
-      </div>
-      <div class="col-sm-5">
-        <div class="month-controls pull-right">
-          <button class="btn btn-warning btn-sm" (click)="selectPreviousMonth()"><i class="fa fa-backward" aria-hidden="true"></i></button>
-          <button class="btn btn-primary btn-sm" (click)="selectCurrentMonth()" [disabled]="selectedMonth.endOf('month').format('MM-YY') === currentMoment.endOf('month').format('MM-YY')">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-          </button>
-          <button class="btn btn-warning btn-sm" (click)="selectNextMonth()"><i class="fa fa-forward" aria-hidden="true"></i></button>
-          <span class="vertical-spacer">|</span>
-          <button class="btn btn-danger btn-sm" (click)="deleteBucket(bucket)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    <span *ngIf="bucket.type === 'monthly'">
+      <circlechart [total]="total" [amount]="budget" [key]="bucket.$key"></circlechart>
+      <div class="row">
+        <div class="col-sm-7">
+          <h1>{{month}} <sup class="text-muted">‘{{year}}</sup></h1>
+        </div>
+        <div class="col-sm-5">
+          <div class="month-controls pull-right">
+            <button class="btn btn-warning btn-sm" (click)="selectPreviousMonth()"><i class="fa fa-backward" aria-hidden="true"></i></button>
+            <button class="btn btn-primary btn-sm" (click)="selectCurrentMonth()" [disabled]="selectedMonth.endOf('month').format('MM-YY') === currentMoment.endOf('month').format('MM-YY')">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-warning btn-sm" (click)="selectNextMonth()"><i class="fa fa-forward" aria-hidden="true"></i></button>
+            <span class="vertical-spacer">|</span>
+            <button class="btn btn-danger btn-sm" (click)="deleteBucket(bucket)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </div>
         </div>
       </div>
-    </div>
-    <transactionlist class="mt-1" [month]="selectedMonth" [key]="bucket.$key" (total)="updateTotal($event)"></transactionlist>
-  <div>
-  <addtransaction [key]="bucket.$key"></addtransaction>
+      <transactionlist class="mt-1" [month]="selectedMonth" [key]="bucket.$key" (total)="updateTotal($event)"></transactionlist>
+    </span>
+    <span *ngIf="bucket.type === 'savings'">
+      <circlechart [total]="total" [amount]="bucket.goal" [key]="bucket.$key"></circlechart>
+      <transactionlist class="mt-1" [key]="bucket.$key" (total)="updateTotal($event)"></transactionlist>
+    </span>
+    <addtransaction [key]="bucket.$key"></addtransaction>
+  </div>
 </div>

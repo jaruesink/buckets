@@ -32,9 +32,15 @@ export class TransactionlistComponent {
   }
   ngOnChanges() {
     this.trs.unsubscribe(this.key);
-    let current_month = moment(this.month).format('YYYY-MM');
-    let next_month = moment(this.month).add(1, 'M').format('YYYY-MM');
-    console.log('current transactions month: ', current_month);
+    let current_month, next_month;
+    if (this.month) {
+      current_month = moment(this.month).format('YYYY-MM');
+      next_month = moment(this.month).add(1, 'M').format('YYYY-MM');
+      console.log('current transactions month: ', current_month);
+    } else {
+      current_month = null;
+      next_month = null;
+    }
     this.trs.subscribe(this.key, current_month, next_month, (data) => {
       let transactions = [];
       let total = 0;

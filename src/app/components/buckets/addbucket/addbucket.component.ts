@@ -9,12 +9,14 @@ import { BucketService, UtilityService } from '../../../services';
 export class AddbucketComponent {
   type: any = 'monthly';
   constructor(public bks: BucketService, public utils: UtilityService) {}
+  addBucket(form, firstInput) {
+    this.bks.addBucket(form);
+    firstInput.focus();
+    this.hideDrawer();
+  }
   showDrawer() {
     this.utils.drawer = true;
     this.utils.overlay = true;
-  }
-  testing() {
-    console.log('testing');
   }
   hideDrawer() {
     this.utils.overlay = false;

@@ -19,7 +19,7 @@ id="addbucketbutton" (click)="showDrawer()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     <div class="container py-2">
-      <form (ngSubmit)="bks.addBucket(addBucketForm, firstInput)" #addBucketForm="ngForm">
+      <form (ngSubmit)="addBucket(addBucketForm, firstInput)" #addBucketForm="ngForm">
         <div class="form-group">
           <label for="name">Bucket Name</label>
           <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="name" autocomplete="off" required>
@@ -37,8 +37,8 @@ id="addbucketbutton" (click)="showDrawer()">
           <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="budget" autocomplete="off" min=1 required>
         </div>
         <div *ngIf="type === 'savings'" class="form-group">
-          <label for="budget">Savings Goal</label>
-          <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="budget" autocomplete="off" min=1 required>
+          <label for="goal">Savings Goal</label>
+          <input id="goal" type="number" class="form-control" name="goal" [(ngModel)]="goal" autocomplete="off" min=1 required>
         </div>
 
         <button type="submit" class="btn btn-success btn-block">Add Bucket</button>

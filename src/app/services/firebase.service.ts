@@ -73,7 +73,13 @@ export class FirebaseService {
 
   // TRANSACTION DATA
   transactionsSubscribe(key, begin, end, reader) {
-    let ref = this.BUCKETSREF.child(`${key}/transactions`).orderByChild('date').startAt(begin).endAt(end);
+    let ref;
+    if (begin && end) {
+      ref = this.BUCKETSREF.child(`${key}/transactions`).orderByChild('date').startAt(begin).endAt(end);
+    } else {
+      ref = this.BUCKETSREF.child(`${key}/transactions`).orderByChild('date');
+    }
+
     ref.once('value', snapshot => {
       if (snapshot.val() === null) {
         reader(null);

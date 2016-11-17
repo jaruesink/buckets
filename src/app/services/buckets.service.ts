@@ -41,7 +41,7 @@ export class BucketService {
       reader(data);
     });
   }
-  addBucket(form, firstInput) {
+  addBucket(form) {
     form.value.name = form.value.name.trim();
     this.checkBucketName(form.value.name)
       .then((new_link) => {
@@ -52,7 +52,6 @@ export class BucketService {
       }, () => {
         alert('please choose a unique name');
       });
-    firstInput.focus();
   }
   checkBucketName(name, key=null) {
     let new_link = name.replace(/[^a-zA-Z\d-]+/g, '-').toLowerCase();

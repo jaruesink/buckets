@@ -15,6 +15,7 @@ export class BucketcardComponent {
   total: number;
   name: string;
   budget: number;
+  goal: number;
   constructor(public bks: BucketService, public router: Router, public trs: TransactionsService) {}
   ngOnInit() {
     this.resetFormModel();
@@ -37,7 +38,12 @@ export class BucketcardComponent {
   }
   resetFormModel() {
     this.name = this.bucket.name;
-    this.budget = this.bucket.budget;
+    if (this.bucket.budget) {
+      this.budget = this.bucket.budget;
+    }
+    if (this.bucket.goal) {
+      this.goal = this.bucket.goal;
+    }
   }
   flip(event = null) {
     event ? event.stopPropagation() : null;
@@ -58,7 +64,12 @@ export class BucketcardComponent {
   saveBucket(form, firstInput) {
     form.value.key = this.bucket.$key
     this.bucket.name = form.value.name.trim();
-    this.bucket.budget = form.value.budget;
+    if (form.value.budget) {
+      this.bucket.budget = form.value.budget;
+    }
+    if (form.value.goal) {
+      this.bucket.goal = form.value.goal;
+    }
     this.bks.saveBucket(form, firstInput).then(() => {
       this.flip();
     }, () => {

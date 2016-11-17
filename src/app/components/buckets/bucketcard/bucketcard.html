@@ -7,7 +7,8 @@
       <div class="card-block">
         <h4 class="card-title">{{bucket?.name}}</h4>
         <div class="card-block p-0">
-          <circlechart [total]="total" [budget]="bucket.budget" [size]="'small'" [key]="bucket.$key"></circlechart>
+          <circlechart *ngIf="bucket.type === 'monthly'" [total]="total" [amount]="bucket.budget" [size]="'small'" [key]="bucket.$key"></circlechart>
+          <circlechart *ngIf="bucket.type === 'savings'" [total]="total" [amount]="bucket.goal" [size]="'small'" [key]="bucket.$key"></circlechart>
         </div>
       </div>
     </div>
@@ -21,9 +22,13 @@
           <label for="name">Bucket Name</label>
           <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="name" autocomplete="off" required>
         </div>
-        <div class="form-group">
+        <div *ngIf="bucket.type === 'monthly'" class="form-group">
           <label for="budget">Monthly Budget</label>
           <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="budget" autocomplete="off" min=1 required>
+        </div>
+        <div *ngIf="bucket.type === 'savings'" class="form-group">
+          <label for="goal">Savings Goal</label>
+          <input id="goal" type="number" class="form-control" name="goal" [(ngModel)]="goal" autocomplete="off" min=1 required>
         </div>
         <button type="submit" class="btn btn-success btn-block">Save Bucket</button>
       </form>

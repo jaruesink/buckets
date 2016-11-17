@@ -7,8 +7,20 @@
       <div class="card-block">
         <h4 class="card-title">{{bucket?.name}}</h4>
         <div class="card-block p-0">
-          <circlechart *ngIf="bucket.type === 'monthly'" [total]="total" [amount]="bucket.budget" [size]="'small'" [key]="bucket.$key"></circlechart>
-          <circlechart *ngIf="bucket.type === 'savings'" [total]="total" [amount]="bucket.goal" [size]="'small'" [key]="bucket.$key"></circlechart>
+          <circlechart *ngIf="bucket.type === 'monthly'"
+          [total]="total"
+          [type]="'monthly'"
+          [amount]="bucket.budget"
+          [size]="'small'"
+          [key]="bucket.$key">
+          </circlechart>
+          <circlechart *ngIf="bucket.type === 'savings'"
+          [total]="total"
+          [type]="'savings'"
+          [amount]="bucket.goal"
+          [size]="'small'"
+          [key]="bucket.$key">
+          </circlechart>
         </div>
       </div>
     </div>

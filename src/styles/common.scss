@@ -2,10 +2,20 @@
   margin: 0 auto;
   position: relative;
 
-  .viz-summary{
-    text-align: center;
+  .viz-summary, .viz-type{
     width: 100%;
-    position: absolute; bottom: 130px;
+    position: absolute;
+    text-align: center;
+  }
+  
+  .viz-summary{
+    bottom: 100px;
+  }
+  
+  .viz-type{
+    font-size: 72px;
+    bottom: 130px;
+    color: #eceeef;
   }
 
   &.small{
@@ -13,7 +23,12 @@
 
     .viz-summary{
       font-size: 12px;
-      position: absolute; bottom: 94px;
+      bottom: 70px;
+    }
+    
+    .viz-type{
+      font-size: 48px;
+      bottom: 90px;
     }
   }
 }

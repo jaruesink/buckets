@@ -13,6 +13,12 @@ import { Component, Input, ViewChild } from '@angular/core';
         <span class="viz-divider"> / </span>
         <span class="viz-budget">{{amount | money}}</span>
       </div>
+      <div *ngIf="type === 'monthly'" class="viz-type">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <div *ngIf="type === 'savings'" class="viz-type">
+        <i class="fa fa-bank"></i>
+      </div>
     </div>
   `,
   styleUrls: ['./circlechart.scss']
@@ -22,12 +28,13 @@ export class CircleChartComponent {
   @Input() total: number;
   @Input() size: string;
   @Input() key: string;
+  @Input() type: string;
   @ViewChild('chartContainer') chartContainer;
   viz_container: any;
   viz: any;
   constructor() {}
   ngAfterViewInit() {
-
+    console.log('icon: ', this.icon);
     this.viz_container = d3.selectAll('.viz-container');
     this.viz = vizuly.component.radial_progress(document.getElementById(`chart-container-${this.key}`));
     this.viz.data(.01)

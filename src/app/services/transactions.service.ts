@@ -23,4 +23,7 @@ export class TransactionsService {
   saveTransaction(bucketkey, key, form) {
     this.fbs.saveTransaction(bucketkey, key, form.value);
   }
+  deleteTransaction(bucketkey, key) {
+    this.fbs.deleteTransaction(bucketkey, key);
+  }
 }

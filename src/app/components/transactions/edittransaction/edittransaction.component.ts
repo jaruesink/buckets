@@ -12,9 +12,7 @@ export class EditTransactionComponent {
   date: Date;
   amount: number;
   description: string;
-  constructor(public trs: TransactionsService) {
-    
-  }
+  constructor(public trs: TransactionsService) {}
   ngOnInit() {
     this.date = this.transaction.date;
     this.amount = this.transaction.amount;
@@ -23,5 +21,8 @@ export class EditTransactionComponent {
   saveTransaction(form) {
     this.trs.saveTransaction(this.transaction.$bucketkey, this.transaction.$key, form);
     this.transaction.editing = false;
+  }
+  deleteTransaction() {
+    this.trs.deleteTransaction(this.transaction.$bucketkey, this.transaction.$key);
   }
 }

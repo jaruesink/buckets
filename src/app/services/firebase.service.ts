@@ -70,7 +70,7 @@ export class FirebaseService {
   deleteBucket(key) {
     this.BUCKETSREF.child(key).remove();
   }
-  
+
   // TRANSACTION DATA
   transactionsSubscribe(key, begin, end, reader) {
     let ref = this.BUCKETSREF.child(`${key}/transactions`).orderByChild('date').startAt(begin).endAt(end);
@@ -95,5 +95,8 @@ export class FirebaseService {
   }
   saveTransaction(bucketkey, key, data) {
     this.BUCKETSREF.child(`${bucketkey}/transactions/${key}`).update(data);
+  }
+  deleteTransaction(bucketkey, key) {
+    this.BUCKETSREF.child(`${bucketkey}/transactions/${key}`).remove();
   }
 }

@@ -30,12 +30,14 @@ form{
   form{
     display: flex;
     justify-content: space-between;
-    & > .form-group:first-child{
+    .name{
       flex: 1;
       padding-right: 30px;
     }
     .row > div{
       padding-left: 0;
+      width: auto;
+      input, .input-group-addon{width: auto;}
     }
     button{
       margin: 32px 0 0 15px;

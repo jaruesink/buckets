@@ -20,9 +20,9 @@ id="addbucketbutton" (click)="showDrawer()">
     </button>
     <div class="container py-2">
       <form (ngSubmit)="addBucket(addBucketForm, firstInput)" #addBucketForm="ngForm">
-        <div class="form-group">
+        <div class="form-group name">
           <label for="name">Bucket Name</label>
-          <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="name" autocomplete="off" required>
+          <input #firstInput id="name" type="text" class="form-control" name="name" [(ngModel)]="name" autocomplete="off" placeholder="Enter a new bucket name here..." required>
         </div>
         <div class="row">
           <div class="col-xs-6">
@@ -36,12 +36,22 @@ id="addbucketbutton" (click)="showDrawer()">
           </div>
           <div class="col-xs-6">
             <div *ngIf="type === 'monthly'" class="form-group">
-              <label for="budget">Monthly Budget</label>
-              <input id="budget" type="number" class="form-control" name="budget" [(ngModel)]="budget" autocomplete="off" min=1 required>
+              <div class="form-group">
+                <label for="budget">Monthly Budget</label>
+                <div class="input-group amount">
+                  <span class="input-group-addon">$</span>
+                  <input type="number" class="form-control" id="budget" name="budget" [(ngModel)]="budget" placeholder="#.##" step="0.01" min=1 autocomplete="off" required>
+                </div>
+              </div>
             </div>
             <div *ngIf="type === 'savings'" class="form-group">
-              <label for="goal">Savings Goal</label>
-              <input id="goal" type="number" class="form-control" name="goal" [(ngModel)]="goal" autocomplete="off" min=1 required>
+              <div class="form-group">
+                <label for="goal">Savings Goal</label>
+                <div class="input-group amount">
+                  <span class="input-group-addon">$</span>
+                  <input type="number" class="form-control" id="goal" name="goal" [(ngModel)]="goal" placeholder="#.##" step="0.01" min=1 autocomplete="off" required>
+                </div>
+              </div>
             </div>
           </div>
         </div>

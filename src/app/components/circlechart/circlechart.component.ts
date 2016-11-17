@@ -34,7 +34,6 @@ export class CircleChartComponent {
   viz: any;
   constructor() {}
   ngAfterViewInit() {
-    console.log('icon: ', this.icon);
     this.viz_container = d3.selectAll('.viz-container');
     this.viz = vizuly.component.radial_progress(document.getElementById(`chart-container-${this.key}`));
     this.viz.data(.01)

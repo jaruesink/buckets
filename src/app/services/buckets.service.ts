@@ -29,6 +29,7 @@ export class BucketService {
         this.snapshot = snapshot;
         this.snapshot$.next(this.snapshot)
         console.log('Bucket Array: ', this.buckets);
+        (this.utils.tutorial) ? this.utils.tutorial = true : null;
       } else {
         this.buckets = null;
         this.snapshot = null;

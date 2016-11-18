@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { FirebaseService } from './firebase.service';
+import { UtilityService } from './utility.service';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -12,7 +13,7 @@ export class BucketService {
   buckets: Array<any> = [];
   snapshot$: Subject<any>;
   bucketsLoaded: boolean = false;
-  constructor(public fbs: FirebaseService) {
+  constructor(public fbs: FirebaseService, public utils: UtilityService) {
     this.snapshot$ = new Subject();
     this.subscribe((data) => {
       if ( data ) {
@@ -31,6 +32,7 @@ export class BucketService {
       } else {
         this.buckets = null;
         this.snapshot = null;
+        this.utils.tutorial = true;
       }
       this.bucketsLoaded = true;
     });

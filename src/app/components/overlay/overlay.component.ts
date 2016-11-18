@@ -5,14 +5,14 @@ import { UtilityService } from '../../services'
 @Component({
   selector: 'overlay',
   template: `
-    <div *ngIf="clickable" class="overlay animated"
+    <div *ngIf="utils.isOverlayClickable" class="overlay animated"
     [ngClass]="{
       'fadeIn': utils.overlay,
       'fadeOut': utils.fadeOut
     }"
     (click)="utils.hideOverlay()"
     ></div>
-    <div *ngIf="!clickable" class="overlay animated"
+    <div *ngIf="!utils.isOverlayClickable" class="overlay animated"
     [ngClass]="{
       'fadeIn': utils.overlay,
       'fadeOut': utils.fadeOut
@@ -22,6 +22,5 @@ import { UtilityService } from '../../services'
   styleUrls: ['./overlay.scss']
 })
 export class OverlayComponent {
-  @Input() clickable: boolean;
   constructor(public utils: UtilityService) {}
 }

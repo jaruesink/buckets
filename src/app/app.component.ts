@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService, FirebaseService, UtilityService } from './services'
+import { AuthService, UtilityService, BucketService } from './services'
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,8 @@ import { AuthService, FirebaseService, UtilityService } from './services'
     <div [hidden]="auth.isLoadingAuth">
       <router-outlet></router-outlet>
     </div>
-    <overlay *ngIf="utils.overlay" [clickable]="utils.isOverlayClickable"></overlay>
+    <tutorial id="tutorial" *ngIf="utils.tutorial"></tutorial>
+    <overlay *ngIf="utils.overlay"></overlay>
   `,
   styleUrls: ['./app.component.scss']
 })

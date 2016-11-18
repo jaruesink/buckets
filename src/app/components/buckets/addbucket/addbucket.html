@@ -15,7 +15,7 @@ id="addbucketbutton" (click)="utils.showDrawer()">
   }"
 >
   <div class="nav navbar-dark bg-inverse navbar-full">
-    <button class="btn-close btn btn-danger btn-small pull-right" (click)="utils.hideDrawer()">
+    <button *ngIf="!utils.tutorial" class="btn-close btn btn-danger btn-small pull-right" (click)="utils.hideDrawer()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     <div class="container py-2">

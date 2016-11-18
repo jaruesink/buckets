@@ -10,6 +10,7 @@ export class UtilityService {
   isOverlayClickable: boolean = true;
   drawer: boolean;
   fadeOut: boolean;
+  tutorial: boolean;
   constructor() {}
   showOverlay() {
     this.overlay = true;
@@ -27,6 +28,7 @@ export class UtilityService {
     this.showOverlay();
   }
   hideDrawer() {
+    (this.tutorial) ? this.tutorial = false : null;
     this.drawer = false;
     this.hideOverlay()
   }

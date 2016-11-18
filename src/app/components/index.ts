@@ -8,3 +8,4 @@ export * from './transactions/transactionlist/transactionlist.component';
 export * from './transactions/edittransaction/edittransaction.component';
 export * from './circlechart/circlechart.component';
 export * from './overlay/overlay.component';
+export * from './tutorial/tutorial.component';

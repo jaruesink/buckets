@@ -6,12 +6,12 @@ export const PagesList = [ HomePage, LoginPage, BucketPage ];
 import {
   LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
   AddbucketComponent, AddtransactionComponent, TransactionlistComponent,
-  EditTransactionComponent, CircleChartComponent
+  EditTransactionComponent, CircleChartComponent, OverlayComponent
 } from './components';
 export const ComponentsList = [
   LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
   AddbucketComponent, AddtransactionComponent, TransactionlistComponent,
-  EditTransactionComponent, CircleChartComponent
+  EditTransactionComponent, CircleChartComponent, OverlayComponent
 ];
 
 //Directives

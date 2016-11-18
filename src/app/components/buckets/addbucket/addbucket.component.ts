@@ -12,16 +12,6 @@ export class AddbucketComponent {
   addBucket(form, firstInput) {
     this.bks.addBucket(form);
     firstInput.focus();
-    this.hideDrawer();
-  }
-  showDrawer() {
-    this.utils.drawer = true;
-    this.utils.overlay = true;
-  }
-  hideDrawer() {
-    this.utils.overlay = false;
-    setTimeout(() => {
-      this.utils.drawer = false;
-    }, 300);
+    this.utils.hideDrawer();
   }
 }

@@ -7,12 +7,27 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UtilityService {
   overlay: boolean;
+  isOverlayClickable: boolean = true;
   drawer: boolean;
+  fadeOut: boolean;
   constructor() {}
-  overlayClick() {
-    this.overlay = false;
+  showOverlay() {
+    this.overlay = true;
+  }
+  hideOverlay() {
+    this.fadeOut = true;
     setTimeout(() => {
-      this.drawer = false;
+      this.overlay = false;
+      this.fadeOut = false;
+      (this.drawer) ? this.hideDrawer() : null;
     }, 300);
+  }
+  showDrawer() {
+    this.drawer = true;
+    this.showOverlay();
+  }
+  hideDrawer() {
+    this.drawer = false;
+    this.hideOverlay()
   }
 }

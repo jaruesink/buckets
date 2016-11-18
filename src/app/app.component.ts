@@ -10,16 +10,7 @@ import { AuthService, FirebaseService, UtilityService } from './services'
     <div [hidden]="auth.isLoadingAuth">
       <router-outlet></router-outlet>
     </div>
-    <div
-    (click)="utils.overlayClick()"
-    class="animated"
-    *ngIf="utils.drawer"
-    [ngClass]="{
-      'fadeIn': utils.overlay,
-      'fadeOut': !utils.overlay && utils.drawer
-    }"
-    id="overlay">
-    </div>
+    <overlay *ngIf="utils.overlay" [clickable]="utils.isOverlayClickable"></overlay>
   `,
   styleUrls: ['./app.component.scss']
 })

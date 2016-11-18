@@ -1,21 +1,21 @@
 <button *ngIf="!utils.drawer"
   class="animated btn btn-success btn-round"
   [ngClass]="{
-    'fadeIn': !utils.overlay
+    'fadeIn': !utils.drawer
   }"
-id="addbucketbutton" (click)="showDrawer()">
+id="addbucketbutton" (click)="utils.showDrawer()">
   <i class="fa fa-plus" aria-hidden="true"></i>
 </button>
 
 <div *ngIf="utils.drawer" id="addbucketdrawer"
   class="animated"
   [ngClass]="{
-    'fadeInUp': utils.overlay,
-    'fadeOutDown': !utils.overlay && utils.drawer
+    'fadeInUp': utils.drawer,
+    'fadeOutDown': utils.fadeOut
   }"
 >
   <div class="nav navbar-dark bg-inverse navbar-full">
-    <button class="btn-close btn btn-danger btn-small pull-right" (click)="hideDrawer()">
+    <button class="btn-close btn btn-danger btn-small pull-right" (click)="utils.hideDrawer()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     <div class="container py-2">

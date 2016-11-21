@@ -1,4 +1,4 @@
-<div class="container mb-3">
+<div class="container">
   
   <div *ngIf="step1" [ngClass]="{'fadeInDown': step1, 'fadeOutDown': fadeOut}" class="card animated">
     <div class="card-block">
@@ -10,13 +10,11 @@
         We take principles from zero-based budgeting and help you apply them practically. This app is currently in development, but you are welcome to test it out for free.<br><br>
         <strong>Click next to get started.</strong>
       </div>
+    </div>
+    <div class="card-footer">
+      <span class="text-muted">1 of 3</span>
       <button class="btn btn-primary pull-right" (click)="showStep2()">Next</button>
     </div>
-    <ol class="carousel-indicators">
-      <li class="active"></li>
-      <li></li>
-      <li></li>
-    </ol>
   </div>
   
   <div *ngIf="step2" [ngClass]="{'fadeInDown': step2, 'fadeOutDown': fadeOut}" class="card animated">
@@ -47,15 +45,11 @@
           </div>
         </div>
       </div>
-      <p class="card-text">
-        <button class="btn btn-primary pull-right" (click)="showStep3()">Next</button>
-      </p>
     </div>
-    <ol class="carousel-indicators">
-      <li></li>
-      <li class="active"></li>
-      <li></li>
-    </ol>
+    <div class="card-footer">
+      <span class="text-muted">2 of 3</span>
+      <button class="btn btn-primary pull-right" (click)="showStep3()">Next</button>
+    </div>
   </div>
   
   <div *ngIf="step3" [ngClass]="{'fadeInDown': step3, 'fadeOutDown': fadeOut}" class="card animated">
@@ -69,13 +63,11 @@
         <br><br>
         <strong>Click get started to create your first bucket.</strong>
       </div>
+    </div>
+    <div class="card-footer">
+      <span class="text-muted">3 of 3</span>
       <button class="btn btn-primary pull-right" (click)="endTutorial()">Get Started</button>
     </div>
-    <ol class="carousel-indicators">
-      <li></li>
-      <li></li>
-      <li class="active"></li>
-    </ol>
   </div>
 
 </div>

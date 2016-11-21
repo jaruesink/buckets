@@ -5,6 +5,11 @@ import { BucketService } from '../../services';
   selector: 'home-page',
   template: `
     <header [isHome]="true" [title]="'Buckets'"></header>
+    <div class="row">
+      <div class="col-xs-12">
+        <circlechart [total]="bks.total" [type]="'monthly'" [amount]="bks.amount" [key]="'summary'"></circlechart>
+      </div>
+    </div>
     <bucketlist [loaded]="bks.bucketsLoaded" [buckets]="bks.buckets"></bucketlist>
     <addbucket></addbucket>
   `,

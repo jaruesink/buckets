@@ -22,9 +22,15 @@ export class BucketcardComponent {
   }
   ngOnChanges() {
     this.trs.unsubscribe(this.bucket.$key);
-    let current_month = moment().format('YYYY-MM');
-    let next_month = moment().add(1, 'M').format('YYYY-MM');
-    console.log('current transactions month: ', current_month);
+    let current_month, next_month;
+    if (this.bucket.goal) {
+      current_month = null;
+      next_month = null;
+    } else {
+      current_month = moment().format('YYYY-MM');
+      next_month = moment().add(1, 'M').format('YYYY-MM');
+      console.log('current transactions month: ', current_month);
+    }
     this.trs.subscribe(this.bucket.$key, current_month, next_month, (data) => {
       let total = 0;
       for (let transaction in data) {

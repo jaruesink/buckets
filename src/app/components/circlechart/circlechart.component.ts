@@ -30,7 +30,7 @@ export class CircleChartComponent {
   @Input() key: string;
   @Input() type: string;
   @ViewChild('chartContainer') chartContainer;
-  viz_container: any;
+  arc: any;
   viz: any;
   width: number;
   arcThickness: number;
@@ -45,9 +45,8 @@ export class CircleChartComponent {
     }
   }
   ngAfterViewInit() {
-    this.viz_container = d3.selectAll('.viz-container');
     this.viz = vizuly.component.radial_progress(document.getElementById(`chart-container-${this.key}`));
-    this.viz.data(.01)
+    this.viz.data(0)
             .min(0)
             .max(100)
             .capRadius(1)
@@ -65,6 +64,28 @@ export class CircleChartComponent {
 
   ngOnChanges() {
     if (this.viz) {
+      this.arc = d3.selectAll(`#chart-container-${this.key} .vz-radial_progress-arc`);
+
+      if (this.type === 'monthly') {
+        if (this.total/this.amount > .9) {
+          this.arc.style('fill', 'red');
+        } else if ( this.total/this.amount > .7 ) {
+          this.arc.style('fill', 'orange');
+        } else {
+          this.arc.style('fill', 'green');
+        }
+      }
+
+      if (this.type === 'savings') {
+        if (this.total/this.amount > .9) {
+          this.arc.style('fill', 'green');
+        } else if ( this.total/this.amount > .7 ) {
+          this.arc.style('fill', 'orange');
+        } else {
+          this.arc.style('fill', 'red');
+        }
+      }
+
       this.viz.data(this.total)
               .max(this.amount)
               .update();

@@ -1,6 +1,10 @@
 declare const d3:any;
 declare const vizuly:any;
 
+const RED = '#B22222';
+const ORANGE = '#FF8C00';
+const GREEN = '#339900';
+
 import { Component, Input, ViewChild } from '@angular/core';
 
 @Component({
@@ -68,21 +72,21 @@ export class CircleChartComponent {
 
       if (this.type === 'monthly') {
         if (this.total/this.amount > .9) {
-          this.arc.style('fill', 'red');
+          this.arc.style('fill', RED);
         } else if ( this.total/this.amount > .7 ) {
-          this.arc.style('fill', 'orange');
+          this.arc.style('fill', ORANGE);
         } else {
-          this.arc.style('fill', 'green');
+          this.arc.style('fill', GREEN);
         }
       }
 
       if (this.type === 'savings') {
         if (this.total/this.amount > .9) {
-          this.arc.style('fill', 'green');
+          this.arc.style('fill', GREEN);
         } else if ( this.total/this.amount > .7 ) {
-          this.arc.style('fill', 'orange');
+          this.arc.style('fill', ORANGE);
         } else {
-          this.arc.style('fill', 'red');
+          this.arc.style('fill', RED);
         }
       }
 

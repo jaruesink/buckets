@@ -17,11 +17,13 @@ export class FirebaseService {
   FIREAUTH: any;
   FIREDB: any;
   BUCKETSREF: any;
+  USERSREF: any;
   constructor(public af: AngularFire) {
     this.FIRE = firebase.initializeApp(firebaseConfig)
     this.FIREAUTH = this.FIRE.auth();
     this.FIREDB = this.FIRE.database();
     this.BUCKETSREF = this.FIREDB.ref('/buckets');
+    this.USERSREF = this.FIREDB.ref('/users');
   }
 
   // AUTH DATA
@@ -34,9 +36,9 @@ export class FirebaseService {
   }
   authLogin() {
     console.log('logging in with facebook');
-    this.af.auth.login().then(() => {
-      console.log('you are logging in');
-    });
+    let provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('user_friends');
+    this.FIREAUTH.signInWithRedirect(provider);
   }
   authLogout() {
     console.log('logging out');
@@ -45,7 +47,6 @@ export class FirebaseService {
 
   // BUCKETS DATA
   bucketsSubscribe(reader) {
-    console.log('TODO: figure out a way to not need this subscribe');
     this.authSubscribe(data => {
       let ref = this.BUCKETSREF.orderByChild('owner').equalTo(this.uid);
       ref.once('value', snapshot => {

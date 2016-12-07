@@ -4,3 +4,4 @@ export * from './user.service';
 export * from './buckets.service';
 export * from './transactions.service';
 export * from './utility.service';
+export * from './facebook.service';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BucketService } from '../../services';
+import { BucketService, FacebookService } from '../../services';
 
 @Component({
   selector: 'home-page',
@@ -11,5 +11,5 @@ import { BucketService } from '../../services';
   styleUrls: ['./home.page.scss']
 })
 export class HomePage {
-  constructor(public bks: BucketService) {}
+  constructor(public bks: BucketService, public fbs: FacebookService) {}
 }

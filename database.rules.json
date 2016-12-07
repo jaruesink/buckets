@@ -1,8 +1,8 @@
 {
   "rules": {
+    ".read": "true",
+    ".write": "true",
     "buckets": {
-      ".read": "(auth != null)",
-      ".write": "(auth != null)",
       ".indexOn": ["owner"],
       "$bucket_id": {
         "transactions": {

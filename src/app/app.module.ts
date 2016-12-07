@@ -21,7 +21,7 @@ import { FirebaseService } from './services';
     RoutingModule,
     initializeFirebase()
   ],
-  providers: [...ServicesList],
+  providers: [...ServicesList, { provide: 'Window',  useValue: window }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,22 @@
+<nav id="friendssidebar" *ngIf="utils.sidebar"
+class="navbar navbar-dark bg-inverse navbar-full animated"
+[ngClass]="{
+  'fadeInRight': utils.sidebar,
+  'fadeOutRight': utils.fadeOut
+}">
+  <div class="row">
+    <a class="navbar-brand">
+      Editors
+    </a>
+    <button class="btn btn-danger pull-right btn-close" (click)="utils.hideSidebar()"><i class="fa fa-times" aria-hidden="true"></i></button>
+  </div>
+  <hr>
+  <ul class="list-group">
+    <li class="list-group-item space-between" *ngFor="let friend of fbs.friendsUsingApp">
+      <img class="rounded" src="{{friend.picture.data.url}}" alt="{{friend.name}}">
+      <div>{{friend.name}}<br>
+        <button class="btn-sm btn-success btn">invite to edit</button>
+      </div>
+    </li>
+  </ul>
+</nav>

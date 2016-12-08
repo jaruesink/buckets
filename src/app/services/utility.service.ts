@@ -9,6 +9,7 @@ export class UtilityService {
   overlay: boolean;
   isOverlayClickable: boolean = true;
   drawer: boolean;
+  sidebar: boolean;
   fadeOut: boolean;
   tutorial: boolean;
   constructor() {}
@@ -21,6 +22,7 @@ export class UtilityService {
       this.overlay = false;
       this.fadeOut = false;
       (this.drawer) ? this.hideDrawer() : null;
+      (this.sidebar) ? this.hideSidebar() : null;
     }, 300);
   }
   showDrawer() {
@@ -31,5 +33,13 @@ export class UtilityService {
     (this.tutorial) ? this.tutorial = false : null;
     this.drawer = false;
     this.hideOverlay()
+  }
+  showSidebar() {
+    this.sidebar = true;
+    this.showOverlay();
+  }
+  hideSidebar() {
+    this.sidebar = false;
+    this.hideOverlay();
   }
 }

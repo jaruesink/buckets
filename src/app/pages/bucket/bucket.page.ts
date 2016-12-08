@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BucketService } from '../../services';
+import { BucketService, UtilityService } from '../../services';
 import { Subject } from 'rxjs/Subject';
 import * as moment from 'moment';
 import 'rxjs/Rx';
@@ -19,7 +19,7 @@ export class BucketPage {
   year: string = this.selectedMonth.format('YY');
   total: number = 0;
   budget: number = 100;
-  constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router) {
+  constructor(public bks: BucketService, activeRoute: ActivatedRoute, public rtr: Router, public util: UtilityService) {
     activeRoute.params.forEach((params: Params) => {
       let link = params['link'];
       if ( bks.snapshot[link] ) {
@@ -37,6 +37,9 @@ export class BucketPage {
         }
       });
     });
+  }
+  openFriendsSidebar() {
+    this.util.showSidebar();
   }
   ngOnDestroy() {
     this.bks.snapshot$.unsubscribe();

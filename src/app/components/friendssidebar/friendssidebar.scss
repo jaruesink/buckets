@@ -1,0 +1,24 @@
+#friendssidebar{
+  position: fixed;
+  top: 0; right: 0;
+  height: 100%;
+  width: 300px;
+  z-index: 1002;
+  color: white;
+  .row{
+    margin: 0;
+  }
+}
+
+.list-group-item{
+  background: none;
+  padding: 0;
+  margin-bottom: 16px;
+  border: none;
+  font-size: 14px;
+  font-weight: lighter;
+  line-height: 14px;
+  img{margin-right: 8px;}
+  div{flex: 1;}
+  button{position: absolute; bottom: 0;}
+}

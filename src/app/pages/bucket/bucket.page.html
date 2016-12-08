@@ -1,7 +1,8 @@
 <loading *ngIf="!isLoaded"></loading>
 <header *ngIf="isLoaded" [homeButton]="true" [title]="bucket.name"></header>
+<friendssidebar></friendssidebar>
 <div *ngIf="isLoaded" class="container mt-1">
-  <span *ngIf="bucket.type === 'monthly'">    
+  <span *ngIf="bucket.type === 'monthly'">
     <div class="row">
       <div class="col-sm-7">
         <h1>{{month}} <sup class="text-muted">‘{{year}}</sup></h1>
@@ -14,6 +15,7 @@
           </button>
           <button class="btn btn-warning btn-sm" (click)="selectNextMonth()"><i class="fa fa-forward" aria-hidden="true"></i></button>
           <span class="vertical-spacer">|</span>
+          <button class="btn btn-success btn-sm" (click)="openFriendsSidebar()"><i class="fa fa-user-plus" aria-hidden="true"></i></button>
           <button class="btn btn-danger btn-sm" (click)="deleteBucket(bucket)"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
       </div>

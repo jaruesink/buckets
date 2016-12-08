@@ -9,6 +9,9 @@
           ".indexOn": ["date"]
         }
       }
+    },
+    "users": {
+      ".indexOn": ["fbid"]
     }
   }
 }

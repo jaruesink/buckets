@@ -12,10 +12,10 @@ class="navbar navbar-dark bg-inverse navbar-full animated"
   </div>
   <hr>
   <ul class="list-group">
-    <li class="list-group-item space-between" *ngFor="let friend of fbs.friendsUsingApp">
+    <li class="list-group-item space-between" *ngFor="let friend of faces.friendsUsingApp">
       <img class="rounded" src="{{friend.picture.data.url}}" alt="{{friend.name}}">
       <div>{{friend.name}}<br>
-        <button class="btn-sm btn-success btn">invite to edit</button>
+        <button class="btn-sm btn-success btn" (click)="inviteUserToEdit(friend.id)">invite to edit</button>
       </div>
     </li>
   </ul>

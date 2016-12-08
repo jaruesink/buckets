@@ -10,13 +10,13 @@ export class AuthService {
   isLoadingAuth: boolean = true;
   constructor(public fbs: FirebaseService, public rtr: Router, public user: UserService) {
     fbs.authSubscribe(data => {
-      (data) ? this.processLogin(data.auth) : this.processLogout();
+      (data) ? this.processLogin(data) : this.processLogout();
       this.isLoadingAuth = false;
     });
   }
-  processLogin(auth_data) {
+  processLogin(data) {
     this.isLoggedIn = true;
-    this.user.saveUser(auth_data);
+    this.user.saveUser(data);
     if ( this.rtr.url === '/login' ) {
       this.rtr.navigate(['/']);
     }

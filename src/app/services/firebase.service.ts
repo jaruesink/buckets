@@ -45,6 +45,25 @@ export class FirebaseService {
     this.af.auth.logout();
   }
 
+  // USERS DATA
+  saveUser(key, data) {
+    this.USERSREF.child(key).update(data);
+  }
+  getUserByFBID(id) {
+    return new Promise((resolve, reject) => {
+      this.USERSREF.orderByChild('fbid').startAt(id).endAt(id)
+      .once('value', snapshot => {
+        let user = snapshot.val();
+        if (user) {
+          resolve(user);
+        } else {
+          reject(snapshot.val());
+        }
+      });
+    });
+
+  }
+
   // BUCKETS DATA
   bucketsSubscribe(reader) {
     this.authSubscribe(data => {

@@ -84,6 +84,11 @@ export class FirebaseService {
     data.owner = this.uid;
     this.BUCKETSREF.push(data);
   }
+  updateBucket(bucket) {
+    let key = bucket.$key;
+    delete bucket.$key;
+    this.BUCKETSREF.child(key).set(bucket);
+  }
   saveBucket({key, link, name, budget}) {
     this.BUCKETSREF.child(key).update({link, name, budget});
   }

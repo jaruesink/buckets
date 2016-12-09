@@ -15,7 +15,11 @@ class="navbar navbar-dark bg-inverse navbar-full animated"
     <li class="list-group-item space-between" *ngFor="let friend of faces.friendsUsingApp">
       <img class="rounded" src="{{friend.picture.data.url}}" alt="{{friend.name}}">
       <div>{{friend.name}}<br>
-        <button class="btn-sm btn-success btn" (click)="inviteUserToEdit(friend.id)">invite to edit</button>
+        <div id="invite_buttons">
+          <button *ngIf="bucket.invited && bucket.invited.indexOf(friend.id) >= 0" class="btn-sm btn-success btn disabled" (click)="inviteUserToEdit(friend.id)" disabled>invited</button>
+          <button *ngIf="bucket.invited && bucket.invited.indexOf(friend.id) >= 0" class="btn-sm btn-warning btn" (click)="cancelInvite(friend.id)"><i class="fa fa-undo" aria-hidden="true"></i></button>
+          <button *ngIf="!bucket.invited || bucket.invited.indexOf(friend.id) === -1" class="btn-sm btn-success btn" (click)="inviteUserToEdit(friend.id)">invite to edit</button>
+        </div>
       </div>
     </li>
   </ul>

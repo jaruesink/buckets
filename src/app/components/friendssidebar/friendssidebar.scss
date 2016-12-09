@@ -20,5 +20,7 @@
   line-height: 14px;
   img{margin-right: 8px;}
   div{flex: 1;}
-  button{position: absolute; bottom: 0;}
+  #invite_buttons{position: absolute; bottom: 0;
+  button{display: inline-block;}
+  }
 }

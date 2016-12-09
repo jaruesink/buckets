@@ -69,6 +69,21 @@ export class BucketService {
       resolve(new_link);
     });
   }
+  inviteUserToBucket(bucket, user) {
+    if (!user.invitedTo) { user.invitedTo = [] };
+    user.invitedTo.push(bucket.$key);
+    this.fbs.saveUser(user.uid, user);
+    this.updateBucket(bucket);
+  }
+  cancelInviteToBucket(bucket, user) {
+    let index = user.invitedTo.indexOf(bucket.$key);
+    user.invitedTo.splice(index, 1);
+    this.fbs.saveUser(user.uid, user);
+    this.updateBucket(bucket);
+  }
+  updateBucket(bucket) {
+    this.fbs.updateBucket(bucket);
+  }
   saveBucket(form, firstInput) {
     return new Promise( (resolve, reject) => {
       this.checkBucketName(form.value.name, form.value.key)

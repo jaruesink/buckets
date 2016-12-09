@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { FirebaseService } from './firebase.service';
 import { UtilityService } from './utility.service';
+import { UserService } from './user.service';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -69,15 +70,18 @@ export class BucketService {
       resolve(new_link);
     });
   }
-  inviteUserToBucket(bucket, user) {
+  inviteUserToBucket(bucket, user, invitedBy) {
     if (!user.invitedTo) { user.invitedTo = [] };
-    user.invitedTo.push(bucket.$key);
+    user.invitedTo.push({key: bucket.$key, invitedBy});
     this.fbs.saveUser(user.uid, user);
     this.updateBucket(bucket);
   }
   cancelInviteToBucket(bucket, user) {
-    let index = user.invitedTo.indexOf(bucket.$key);
-    user.invitedTo.splice(index, 1);
+    user.invitedTo.forEach((invite, index) => {
+      if (invite.key === bucket.$key) {
+        user.invitedTo.splice(index, 1);
+      }
+    });
     this.fbs.saveUser(user.uid, user);
     this.updateBucket(bucket);
   }
@@ -101,5 +105,8 @@ export class BucketService {
   deleteBucket(bucket) {
     console.log('deleting bucket:', bucket);
     this.fbs.deleteBucket(bucket.$key);
+  }
+  getBucketByID(id) {
+    return this.fbs.getBucketByID(id);
   }
 }

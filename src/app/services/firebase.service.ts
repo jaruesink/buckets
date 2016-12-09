@@ -49,9 +49,9 @@ export class FirebaseService {
   saveUser(key, data) {
     this.USERSREF.child(key).update(data);
   }
-  getUserByFBID(id) {
+  getUserByUID(uid) {
     return new Promise((resolve, reject) => {
-      this.USERSREF.orderByChild('fbid').startAt(id).endAt(id)
+      this.USERSREF.child(uid)
       .once('value', snapshot => {
         let user = snapshot.val();
         if (user) {
@@ -61,7 +61,36 @@ export class FirebaseService {
         }
       });
     });
-
+  }
+  getUserByFBID(id) {
+    return new Promise((resolve, reject) => {
+      this.USERSREF.orderByChild('fbid').startAt(id).endAt(id)
+      .once('value', snapshot => {
+        let data = snapshot.val();
+        let user = data[Object.keys(data)[0]];
+        if (user) {
+          resolve(user);
+        } else {
+          reject(snapshot.val());
+        }
+      });
+    });
+  }
+  // BUCKETS DATA
+  userSubscribe(reader) {
+    this.authSubscribe(data => {
+      let ref = this.USERSREF.child(this.uid);
+      ref.once('value', snapshot => {
+        if (snapshot.val() === null) {
+          reader(null);
+        }
+      }).then(() => {
+        ref.on('value', snapshot => {
+          console.log('user subscribe: ', snapshot.val());
+          reader(snapshot.val());
+        });
+      });
+    });
   }
 
   // BUCKETS DATA
@@ -94,6 +123,19 @@ export class FirebaseService {
   }
   deleteBucket(key) {
     this.BUCKETSREF.child(key).remove();
+  }
+  getBucketByID(id) {
+    return new Promise((resolve, reject) => {
+      this.BUCKETSREF.child(id)
+      .once('value', snapshot => {
+        let user = snapshot.val();
+        if (user) {
+          resolve(user);
+        } else {
+          reject(snapshot.val());
+        }
+      });
+    });
   }
 
   // TRANSACTION DATA

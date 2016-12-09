@@ -13,4 +13,9 @@ export class UserService {
     console.log('user data saved: ', this.me);
     this.fbs.saveUser(uid, this.me);
   }
+  subscribe(reader) {
+    this.fbs.userSubscribe(data => {
+      reader(data);
+    });
+  }
 }

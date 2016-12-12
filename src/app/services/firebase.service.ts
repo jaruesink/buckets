@@ -46,8 +46,8 @@ export class FirebaseService {
   }
 
   // USERS DATA
-  saveUser(key, data) {
-    this.USERSREF.child(key).update(data);
+  saveUser(user) {
+    this.USERSREF.child(user.uid).update(user);
   }
   getUserByUID(uid) {
     return new Promise((resolve, reject) => {
@@ -76,7 +76,12 @@ export class FirebaseService {
       });
     });
   }
-  // BUCKETS DATA
+  getUserOnce(reader) {
+    let ref = this.USERSREF.child(this.uid);
+    ref.once('value', snapshot => {
+      reader(snapshot.val());
+    });
+  }
   userSubscribe(reader) {
     this.authSubscribe(data => {
       let ref = this.USERSREF.child(this.uid);
@@ -109,6 +114,19 @@ export class FirebaseService {
       });
     });
   }
+  editorOfBucketsSubscribe(reader) {
+    let ref = this.USERSREF.child(`${this.uid}/editorOf`);
+    ref.once('value', snapshot => {
+      if (snapshot.val() === null) {
+        reader(null);
+      }
+    }).then(() => {
+      ref.on('value', snapshot => {
+        console.log('list of buckets editing: ', snapshot.val());
+        reader(snapshot.val());
+      });
+    });
+  }
   addBucket(data) {
     data.owner = this.uid;
     this.BUCKETSREF.push(data);
@@ -124,9 +142,9 @@ export class FirebaseService {
   deleteBucket(key) {
     this.BUCKETSREF.child(key).remove();
   }
-  getBucketByID(id) {
+  getBucketByKey(key) {
     return new Promise((resolve, reject) => {
-      this.BUCKETSREF.child(id)
+      this.BUCKETSREF.child(key)
       .once('value', snapshot => {
         let user = snapshot.val();
         if (user) {

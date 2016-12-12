@@ -5,15 +5,7 @@
       <bucketcard [bucket]="bucket"></bucketcard>
     </li>
     <li class="mt-1" *ngFor="let invite of invitedTo">
-      <div class="card">
-        <div class="card-block">
-          <h4 class="card-title">You are invited to edit {{invite.name}} by {{invite.invitedBy.name}}.</h4>
-          <p class="card-text space-around">
-            <button class="btn btn-success">Accept</button>
-            <button class="btn btn-danger">Delete</button>
-          </p>
-        </div>
-      </div>
+      <invitecard [invite]="invite"></invitecard>
     </li>
     <li class="fake-li" aria-hidden="true"></li>
     <li class="fake-li" aria-hidden="true"></li>

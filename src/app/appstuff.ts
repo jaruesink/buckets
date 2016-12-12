@@ -7,13 +7,13 @@ import {
   LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
   AddbucketComponent, AddtransactionComponent, TransactionlistComponent,
   EditTransactionComponent, CircleChartComponent, OverlayComponent, TutorialComponent,
-  FriendsSidebarComponent
+  FriendsSidebarComponent, InvitecardComponent
 } from './components';
 export const ComponentsList = [
   LoadingComponent, HeaderComponent, BucketlistComponent, BucketcardComponent,
   AddbucketComponent, AddtransactionComponent, TransactionlistComponent,
   EditTransactionComponent, CircleChartComponent, OverlayComponent, TutorialComponent,
-  FriendsSidebarComponent
+  FriendsSidebarComponent, InvitecardComponent
 ];
 
 //Directives

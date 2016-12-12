@@ -2,6 +2,7 @@
   position: fixed;
   top: 0; right: 0;
   height: 100%;
+  overflow-y: scroll;
   width: 300px;
   z-index: 1002;
   color: white;
@@ -18,7 +19,7 @@
   font-size: 14px;
   font-weight: lighter;
   line-height: 14px;
-  img{margin-right: 8px;}
+  img{margin-right: 8px; height: 50px; width: 50px;}
   div{flex: 1;}
   #invite_buttons{position: absolute; bottom: 0;
   button{display: inline-block;}

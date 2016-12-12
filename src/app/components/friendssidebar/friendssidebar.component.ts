@@ -9,9 +9,10 @@ import { UtilityService, FacebookService, FirebaseService, BucketService, UserSe
 })
 export class FriendsSidebarComponent {
   @Input() bucket: any;
-  constructor(public utils: UtilityService, public faces: FacebookService, public fbs: FirebaseService, public bks: BucketService, public user: UserService) {
-    faces.getFriends();
-  }
+  editors: Array<any>;
+  friends: any;
+  editor_id_array: Array<any>;
+  constructor(public utils: UtilityService, public faces: FacebookService, public fbs: FirebaseService, public bks: BucketService, public user: UserService) {}
   inviteUserToEdit(id) {
     console.log('friends id: ', id);
     this.fbs.getUserByFBID(id).then((user) => {
@@ -26,13 +27,42 @@ export class FriendsSidebarComponent {
   }
   cancelInvite(id) {
     this.fbs.getUserByFBID(id).then((user) => {
-      let index = this.bucket.invited.indexOf(id);
-      this.bucket.invited.splice(index, 1);
       this.bks.cancelInviteToBucket(this.bucket, user);
       console.log('getting user by fbid', user);
     }).catch(error => {
       alert('unable to process invite at this time');
       console.log('error getting user by fbid: ', error);
     });
+  }
+  removeAsEditor(editor) {
+    this.bks.removeEditorFromBucket(this.bucket, editor);
+  }
+  ngOnChanges() {
+    if (this.bucket) {
+      this.editors = [];
+      this.editor_id_array = [];
+      if (this.bucket.editors) {
+        this.bucket.editors.forEach(editor => {
+          this.fbs.getUserByUID(editor).then(user_info => {
+            console.log('got user by UID: ', user_info);
+            this.editors.push(user_info);
+            this.editor_id_array.push((user_info as any).fbid);
+          }).catch(error => {
+            console.log('error getting user by UID: ', error);
+          });
+        });
+      }
+      this.faces.getFriends().then(friends => {
+        (friends as Array<any>).forEach((friend, index) => {
+          if ( this.editor_id_array.indexOf(friend.id) > -1) {
+            console.log('editor found: ', friend.id);
+            (friends as Array<any>).splice(index, 1);
+          }
+        });
+        this.friends = friends;
+      }).catch(error => {
+        console.log('error getting friends: ', error);
+      });
+    }
   }
 }

@@ -5,7 +5,7 @@ import { BucketService, FacebookService } from '../../services';
   selector: 'home-page',
   template: `
     <header [isHome]="true" [title]="'Buckets'"></header>
-    <bucketlist [loaded]="bks.bucketsLoaded" [buckets]="bks.buckets"></bucketlist>
+    <bucketlist [loaded]="bks.bucketsLoaded && bks.invitesLoaded" [buckets]="bks.buckets" [invites]="bks.invites"></bucketlist>
     <addbucket></addbucket>
   `,
   styleUrls: ['./home.page.scss']

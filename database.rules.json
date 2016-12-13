@@ -12,6 +12,9 @@
     },
     "users": {
       ".indexOn": ["fbid"]
+    },
+    "invites": {
+      ".indexOn": ["invitedUID", "invitedByUID", "invitedFBID"]
     }
   }
 }

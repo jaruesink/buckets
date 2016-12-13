@@ -14,6 +14,8 @@ export class BucketService {
   buckets: Array<any> = [];
   snapshot$: Subject<any>;
   bucketsLoaded: boolean = false;
+  invitesLoaded: boolean = false;
+  invites: Array<any>;
   constructor(public fbs: FirebaseService, public utils: UtilityService) {
     this.snapshot$ = new Subject();
     this.subscribe(data => {
@@ -39,9 +41,44 @@ export class BucketService {
       this.bucketsLoaded = true;
     });
 
+    this.subscribeToInvited(invites => {
+      this.invites = [];
+      if (invites) {
+        for (let prop in invites) {
+          let invite = invites[prop];
+          invite.$key = prop;
+          this.subscribeByKey(invite.bucketKey, bucket_data => {
+            console.log('bucket data: ', bucket_data);
+            invite.bucket = bucket_data;
+            this.fbs.getUserByUID(invite.invitedByUID).then(user => {
+              invite.invitedBy = user;
+              this.invites.forEach((inv, index) => {
+                console.log('inv', inv);
+                if (invite.$key === inv.$key) {
+                  this.invites.splice(index, 1);
+                }
+              });
+              this.invites.push(invite);
+              this.invitesLoaded = true;
+            }).catch(error => {
+              console.log('error getting user by UID: ', error);
+            });
+          })
+        }
+      } else {
+        this.invitesLoaded = true;
+      }
+      console.log('user is invited to: ', this.invites);
+    });
+
   }
   subscribe(reader) {
     this.fbs.bucketsSubscribe(data => {
+      reader(data);
+    });
+  }
+  subscribeByKey(key, reader) {
+    this.fbs.bucketsSubscribeByKey(key, data => {
       reader(data);
     });
   }
@@ -71,11 +108,18 @@ export class BucketService {
     });
   }
   inviteUserToBucket(bucket, user, invitedBy) {
-    this.fbs.inviteUserToBucket(bucket.$key, user.uid, invitedBy.uid);
+    this.fbs.inviteUserToBucket(bucket.$key, user.uid, user.fbid, invitedBy.uid);
     console.log('inviting user to bucket: ', bucket, user, invitedBy)
   }
-  cancelInviteToBucket(bucket, user) {
-    console.log('user canceling invite: ', bucket, user);
+  subscribeToInvited(reader) {
+    this.fbs.invitesSubscribe(reader);
+  };
+  subscribeToInvitedBy(reader) {
+    this.fbs.invitedBySubscribe(reader);
+  };
+  cancelInviteToBucket(fbid, key) {
+    console.log('user canceling invite: ', fbid, key);
+    this.fbs.cancelInviteToBucket(fbid, key);
   }
   acceptInviteToBucket(bucket, user) {
     console.log('user accepting invite: ', bucket, user);

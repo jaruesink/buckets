@@ -5,6 +5,7 @@ import { FirebaseService } from './firebase.service';
 @Injectable()
 export class UserService {
   me: any;
+  invitedTo: any;
   constructor(public fbs: FirebaseService) {}
   saveUser({uid, name, email, photo, fbid}) {
     this.me = {uid, name, email, photo, fbid};

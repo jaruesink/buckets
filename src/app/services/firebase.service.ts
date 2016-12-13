@@ -101,10 +101,51 @@ export class FirebaseService {
   }
 
   // INVITES DATA
-
-  inviteUserToBucket(bucketKey, invitedUID, invitedByUID) {
-    let invite = {bucketKey, invitedUID, invitedByUID, status: 'pending'};
+  inviteUserToBucket(bucketKey, invitedUID, invitedFBID, invitedByUID) {
+    let invite = {bucketKey, invitedUID, invitedFBID, invitedByUID, status: 'pending'};
     this.INVITESREF.push(invite);
+  }
+  cancelInviteToBucket(fbid, key) {
+    let ref = this.INVITESREF.orderByChild('invitedFBID').equalTo(fbid);
+    ref.once('value', snapshot => {
+      snapshot.forEach(data => {
+        let invite_key = data.key;
+        let invite = data.val();
+        if (invite.bucketKey === key) {
+          this.INVITESREF.child(invite_key).remove();
+        }
+      })
+    });
+  }
+  invitesSubscribe(reader) {
+    this.authSubscribe(data => {
+      let ref = this.INVITESREF.orderByChild('invitedUID').equalTo(this.uid);
+      ref.once('value', snapshot => {
+        if (snapshot.val() === null) {
+          reader(null);
+        }
+      }).then(() => {
+        ref.on('value', snapshot => {
+          console.log('invites subscribe: ', snapshot.val());
+          reader(snapshot.val());
+        });
+      });
+    });
+  }
+  invitedBySubscribe(reader) {
+    this.authSubscribe(data => {
+      let ref = this.INVITESREF.orderByChild('invitedByUID').equalTo(this.uid);
+      ref.once('value', snapshot => {
+        if (snapshot.val() === null) {
+          reader(null);
+        }
+      }).then(() => {
+        ref.on('value', snapshot => {
+          console.log('invites subscribe: ', snapshot.val());
+          reader(snapshot.val());
+        });
+      });
+    });
   }
 
   // BUCKETS DATA
@@ -123,16 +164,18 @@ export class FirebaseService {
       });
     });
   }
-  editorOfBucketsSubscribe(reader) {
-    let ref = this.USERSREF.child(`${this.uid}/editorOf`);
-    ref.once('value', snapshot => {
-      if (snapshot.val() === null) {
-        reader(null);
-      }
-    }).then(() => {
-      ref.on('value', snapshot => {
-        console.log('list of buckets editing: ', snapshot.val());
-        reader(snapshot.val());
+  bucketsSubscribeByKey(key, reader) {
+    this.authSubscribe(data => {
+      let ref = this.BUCKETSREF.child(key);
+      ref.once('value', snapshot => {
+        if (snapshot.val() === null) {
+          reader(null);
+        }
+      }).then(() => {
+        ref.on('value', snapshot => {
+          console.log('bucket subscribe by key: ', snapshot.val());
+          reader(snapshot.val());
+        });
       });
     });
   }

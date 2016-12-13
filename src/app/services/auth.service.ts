@@ -15,8 +15,29 @@ export class AuthService {
     });
   }
   processLogin(data) {
+    console.log('process login data: ', data)
     this.isLoggedIn = true;
-    this.user.saveUser(data);
+    let user:any = {};
+    if (data.facebook.uid) {
+      user.uid = data.auth.uid;
+      user.name = data.facebook.displayName;
+      user.email = data.facebook.email;
+      user.photo = data.facebook.photoURL;
+      user.fbid = data.facebook.uid;
+      this.user.saveUser(user);
+    } else {
+      firebase.auth().getRedirectResult().then((result) => {
+        console.log('process redirect result data: ', result);
+        user.uid = result.user.uid;
+        user.name = result.user.displayName;
+        user.email = result.user.email;
+        user.photo = result.user.photoURL;
+        user.fbid = result.user.providerData[0].uid;
+        this.user.saveUser(user);
+      }).catch((error) => {
+        console.log('error getting redirect result from facebook login: ', error)
+      });
+    }
     if ( this.rtr.url === '/login' ) {
       this.rtr.navigate(['/']);
     }

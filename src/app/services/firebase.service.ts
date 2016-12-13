@@ -18,12 +18,14 @@ export class FirebaseService {
   FIREDB: any;
   BUCKETSREF: any;
   USERSREF: any;
+  INVITESREF: any;
   constructor(public af: AngularFire) {
     this.FIRE = firebase.initializeApp(firebaseConfig)
     this.FIREAUTH = this.FIRE.auth();
     this.FIREDB = this.FIRE.database();
     this.BUCKETSREF = this.FIREDB.ref('/buckets');
     this.USERSREF = this.FIREDB.ref('/users');
+    this.INVITESREF = this.FIREDB.ref('/invites');
   }
 
   // AUTH DATA
@@ -67,8 +69,8 @@ export class FirebaseService {
       this.USERSREF.orderByChild('fbid').startAt(id).endAt(id)
       .once('value', snapshot => {
         let data = snapshot.val();
-        let user = data[Object.keys(data)[0]];
-        if (user) {
+        if (data) {
+          let user = data[Object.keys(data)[0]];
           resolve(user);
         } else {
           reject(snapshot.val());
@@ -96,6 +98,13 @@ export class FirebaseService {
         });
       });
     });
+  }
+
+  // INVITES DATA
+
+  inviteUserToBucket(bucketKey, invitedUID, invitedByUID) {
+    let invite = {bucketKey, invitedUID, invitedByUID, status: 'pending'};
+    this.INVITESREF.push(invite);
   }
 
   // BUCKETS DATA

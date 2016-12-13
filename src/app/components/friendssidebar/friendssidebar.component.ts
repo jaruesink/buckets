@@ -16,8 +16,6 @@ export class FriendsSidebarComponent {
   inviteUserToEdit(id) {
     console.log('friends id: ', id);
     this.fbs.getUserByFBID(id).then((user) => {
-      if (!this.bucket.invited) {this.bucket.invited = []};
-      this.bucket.invited.push(id);
       this.bks.inviteUserToBucket(this.bucket, user, this.user.me);
       console.log('getting user by fbid', user);
     }).catch(error => {

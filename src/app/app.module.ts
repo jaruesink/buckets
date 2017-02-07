@@ -4,30 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-// Components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
+import { ROUTES, PAGES, SERVICES } from './appstuff';
 
-// Services
-import * as axios from 'axios'
-import { FacebookService } from 'ng2-facebook-sdk';
 
-const ROUTES = [
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  }
-];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    ...PAGES
   ],
   imports: [
     BrowserModule,
@@ -35,7 +20,7 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [ FacebookService ],
+  providers: [ SERVICES ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,4 +18,13 @@ module.exports = {
       .catch(next);
   },
 
+  delete(req, res, next) {
+    const userID = req.params.id;
+    const userProps = req.body;
+
+    User.findByIdAndRemove({ _id: userID }, userProps)
+      .then(user => res.status(200).send(user))
+      .catch(next);
+  }
+
 };

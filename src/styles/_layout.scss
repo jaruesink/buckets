@@ -1,0 +1,27 @@
+$sm-boundary: 600px;
+$md-boundary: 900px;
+$lg-boundary: 1200px;
+
+@mixin breakpoint($breakpoint) {
+  @if $breakpoint == xs-only {
+    @media (max-width: #{$sm-boundary - 1}) { @content; }
+  } @else if $breakpoint == sm-up {
+    @media (min-width: $sm-boundary) { @content; }
+  } @else if $breakpoint == md-up {
+    @media (min-width: $md-boundary) { @content; }
+  } @else if $breakpoint == lg-up {
+    @media (min-width: $lg-boundary) { @content; }
+  }
+}
+
+
+.page-container{
+  max-width: auto;
+  margin: auto;
+  @include breakpoint(sm-up) {
+    max-width: 720px;
+  }
+  @include breakpoint(lg-up) {
+    max-width: 960px;
+  }
+}

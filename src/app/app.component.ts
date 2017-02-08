@@ -11,7 +11,8 @@ export class AppComponent {
     let fbParams: FacebookInitParams = {
       appId: '228671707475003',
       xfbml: true,
-      version: 'v2.8'
+      version: 'v2.8',
+      cookie: true
     };
     this.fb.init(fbParams);
   }

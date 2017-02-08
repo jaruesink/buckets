@@ -1,4 +1,8 @@
+@import "styles/resets";
+@import "styles/theme";
+@import "styles/layout";
+
 /* You can add global styles to this file, and also import other style files */
 body {
-  background: #ccc;
+  font-family: "Roboto","Helvetica Neue",sans-serif;
 }

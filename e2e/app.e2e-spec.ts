@@ -1,10 +1,10 @@
-import { MeanAppPage } from './app.po';
+import { BucketsPage } from './app.po';
 
-describe('mean-app App', function() {
-  let page: MeanAppPage;
+describe('buckets App', function() {
+  let page: BucketsPage;
 
   beforeEach(() => {
-    page = new MeanAppPage();
+    page = new BucketsPage();
   });
 
   it('should display message saying app works', () => {

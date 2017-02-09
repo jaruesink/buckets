@@ -7,14 +7,14 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ROUTES, PAGES, SERVICES } from './appstuff';
+import { ROUTES, PAGES, SERVICES, COMPONENTS } from './appstuff';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...PAGES
+    ...PAGES, ...COMPONENTS
   ],
   imports: [
     BrowserModule,

@@ -8,9 +8,17 @@ mongoose.Promise = global.Promise;
 // Initiate our app
 const app = express();
 
+const options = {
+  server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
+};
+
 // Connect to Mongoose if not in a test environment
 if (process.env.NODE_ENV !== 'test') {
-  mongoose.connect('mongodb://username:password@ds141209.mlab.com:41209/buckets');
+  mongoose.connect(
+    'mongodb://username:password@ds141209.mlab.com:41209/buckets',
+    options
+  );
 }
 
 // Parsers for POST data

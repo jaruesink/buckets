@@ -1,5 +1,5 @@
 {
   "verbose": false,
   "ignore": ["src/aot/*", "dist"],
-  "ext": "js json html ts scss"
+  "ext": "js json"
 }

@@ -1,4 +1,8 @@
-@import "styles/resets";
+:root {
+  @import "styles/resets";
+  @import "styles/global";
+}
+
 @import "styles/theme";
 @import "styles/layout";
 

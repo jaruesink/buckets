@@ -18,8 +18,8 @@ export const ROUTES = [
 ];
 
 // Components
-import {} from './components';
-export const COMPONENTS = [];
+import { HeaderComponent } from './components';
+export const COMPONENTS = [ HeaderComponent ];
 
 // Directives
 import {} from './directives';
@@ -32,5 +32,5 @@ export const PIPES = []
 
 // Services
 import { FacebookService } from 'ng2-facebook-sdk';
-import { UserService } from './services';
-export const SERVICES = [ FacebookService, UserService ];
+import { HelpersService, AuthService, UserService } from './services';
+export const SERVICES = [ FacebookService, HelpersService, AuthService, UserService ];

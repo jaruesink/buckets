@@ -1,6 +1,6 @@
-<main class="page-container">
+<header *ngIf="!helpers.loading"></header>
+<main *ngIf="!helpers.loading" class="page-container">
   <h1>
     Hello {{user?.me?.name}}
   </h1>
-  <button md-raised-button color="warn" (click)="logout()">Logout</button>
 </main>

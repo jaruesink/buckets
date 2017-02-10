@@ -23,6 +23,7 @@ export class AppComponent {
     };
     this.fb.init(fbParams);
     this.auth.checkLogin().then((accessToken) => {
+      console.log('checking on loading time', accessToken);
       if (accessToken) { this.router.navigate(['/']) }
       else { this.router.navigate(['/login']) }
     });

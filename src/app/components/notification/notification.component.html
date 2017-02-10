@@ -1,0 +1,6 @@
+<md-toolbar class="notification" color="accent">
+  <span class="flex-spacer"></span>
+  <span>{{notification.content}}</span>
+  <button *ngIf="notification.action.length > 0" md-button (click)="onActionClick()">{{notification.action}}</button>
+  <span class="flex-spacer"></span>
+</md-toolbar>

@@ -1,0 +1,8 @@
+@import '~styles/theme';
+
+.notification {
+  button {
+    margin-left: 30px;
+    background-color: md-color($accent, A100);
+  }
+}

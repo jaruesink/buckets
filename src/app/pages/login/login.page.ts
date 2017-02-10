@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService, HelpersService, AuthService } from '../../services/';
 
@@ -7,15 +7,13 @@ import { UserService, HelpersService, AuthService } from '../../services/';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss']
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   constructor(
     private router: Router,
     private auth: AuthService,
     public helpers: HelpersService,
     public user: UserService
-  ) { }
-
-  ngOnInit() { }
+  ) { auth.possibleLogin = false }
 
   login() {
     this.helpers.loading = true;
@@ -23,7 +21,10 @@ export class LoginPage implements OnInit {
       console.log('response from logging in: ', response);
       this.router.navigate(['/']);
       this.helpers.loading = false;
-    }).catch(error => console.error('error logging in', error));
+    }).catch(error => {
+      console.error('error logging in', error);
+      this.helpers.loading = false;
+    });
   };
 
 

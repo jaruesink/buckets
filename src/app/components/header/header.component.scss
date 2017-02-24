@@ -1,0 +1,13 @@
+.header {
+  font-weight: 300;
+  & *{
+    margin-right: 8px;
+    &:last-child{
+      margin-right: 0px;
+    }
+  }
+}
+img{
+  height: 36px; width: auto;
+  border-radius: 4px;
+}

@@ -15,6 +15,7 @@ export class AppComponent {
     private auth: AuthService,
     public helpers: HelpersService
   ) {
+    this.helpers.loading = true;
     let fbParams: FacebookInitParams = {
       appId: '228671707475003',
       xfbml: true,
@@ -23,7 +24,7 @@ export class AppComponent {
     };
     this.fb.init(fbParams);
     this.auth.checkLogin().then((accessToken) => {
-      console.log('checking on loading time', accessToken);
+      this.helpers.loading = false;
       if (accessToken) { this.router.navigate(['/']) }
       else { this.router.navigate(['/login']) }
     });

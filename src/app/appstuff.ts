@@ -18,8 +18,8 @@ export const ROUTES = [
 ];
 
 // Components
-import { HeaderComponent, NotificationComponent } from './components';
-export const COMPONENTS = [ HeaderComponent, NotificationComponent ];
+import { HeaderComponent, NotificationComponent, BucketlistComponent } from './components';
+export const COMPONENTS = [ HeaderComponent, NotificationComponent, BucketlistComponent ];
 
 // Directives
 import {} from './directives';

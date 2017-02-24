@@ -18,8 +18,9 @@ module.exports = {
             if ( JSON.stringify(testProps) === JSON.stringify(userProps) ) {
               res.send(user);
             } else {
+              req.params.id = user._id;
               req.body = userProps;
-              user_controller.update(req, res, next);
+              user_controller.edit(req, res, next);
             }
           } else {
             req.body = userProps;

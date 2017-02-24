@@ -18,10 +18,9 @@ export class AuthService {
 
   checkLogin() {
     return this.fb.getLoginStatus().then((response: any) => {
-        console.log('response from facebook login status check: ', response);
-        const accessToken = response.authResponse ? response.authResponse.accessToken : false;
-        if (accessToken && !this.user.me) {
-          return this.sendAccessToken(response.authResponse.accessToken)
+      const accessToken = response.authResponse ? response.authResponse.accessToken : false;
+      if (accessToken && !this.user.me) {
+        return this.sendAccessToken(response.authResponse.accessToken)
           .then((http_response) => {
             return this.checkResponseAndSetUser(http_response);
           })
@@ -33,7 +32,6 @@ export class AuthService {
         }
       },
       (error) => {
-        console.error('error checking login status', error);
         this.helpers.notify('connection error', 'retry', this.login.bind(this));
       });
   }
@@ -46,6 +44,7 @@ export class AuthService {
             return this.checkResponseAndSetUser(http_response);
           })
           .catch((error) => {
+            console.log('something wrong happened sending access token while clicking login');
             this.handleHttpError(error);
           });
       } else {
@@ -56,6 +55,7 @@ export class AuthService {
               return this.checkResponseAndSetUser(http_response);
             })
             .catch((error) => {
+              console.log('something wrong happened sending access token after calling fb login');
               this.handleHttpError(error);
             });
         },
@@ -80,6 +80,7 @@ export class AuthService {
   checkResponseAndSetUser(http_response) {
     console.log('checking http response: ', http_response);
     if (!http_response) throw new Error('empty response');
+    if (http_response.status === 400) throw new Error('empty response');
     const data = JSON.parse(http_response['_body'])
     this.user.setUser(data);
     return data;

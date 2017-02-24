@@ -1,5 +1,6 @@
-<md-toolbar color="primary">
-  <span>{{user?.me?.name}}</span>
+<md-toolbar *ngIf="user.me" class="header" color="primary">
+  <span>Buckets.Money</span>
   <span class="flex-spacer"></span>
+  <img [src]="user.me.picture" alt="user.me.name">
   <button md-raised-button color="warn" (click)="logout()">Logout</button>
 </md-toolbar>

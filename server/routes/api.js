@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const feathers = require('feathers');
+const router = feathers.Router();
 
 const api_controller = require('../controllers/api_controller');
 const bucket_controller = require('../controllers/bucket_controller');

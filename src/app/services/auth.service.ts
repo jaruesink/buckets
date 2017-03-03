@@ -70,7 +70,7 @@ export class AuthService {
 
   sendAccessToken(access_token) {
     this.possibleLogin = true;
-    const url = `/api/login`;
+    const url = '/api/login';
     return this.http.post(url,
       JSON.stringify({access_token}),
       {headers: this.headers}

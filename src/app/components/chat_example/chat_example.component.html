@@ -1,3 +1,8 @@
-<p>
-  <button md-button>Test Websocket</button>
-</p>
+<p *ngIf="user.me.status">{{user.me.status}}</p>
+
+<form #updateStatusForm="ngForm" (ngSubmit)="updateStatus(updateStatusForm)">
+  <md-input-container>
+    <input mdInput name="status" ngModel #status="ngModel" placeholder="enter a new status" required>
+  </md-input-container>
+  <button md-button type="submit">Update Status</button>
+</form>

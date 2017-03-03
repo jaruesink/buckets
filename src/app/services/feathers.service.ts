@@ -10,26 +10,26 @@ const rest = require('feathers-rest/client');
 
 import { Injectable } from '@angular/core';
 // import { Headers, Http } from '@angular/http';
-import { HelpersService } from './helpers.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class FeathersService {
   // private headers = new Headers({'Content-Type': 'application/json'});
   private app = feathers().configure(socketio(io.connect('http://localhost:3000')));
-
-  private messages = this.app.service('messages');
+  private status = this.app.service('realtime/user_status');
 
   constructor(
-    public helpers: HelpersService,
+    public user: UserService,
   ) {
-
-    this.messages.on('created', (message) => {
-      console.log('your message was sent', message.text);
+    this.status.on('updated', ({status}) => {
+      console.log('your status was updated', status);
+      this.user.me.status = status;
     });
-
   }
 
-  sendMessage() {
-    this.messages.create({text: 'Hello from websocket!'});
+  updateStatus(status) {
+    const id = this.user.me._id;
+    // debugger;
+    this.status.update({id, status});
   }
 }

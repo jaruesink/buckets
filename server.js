@@ -26,20 +26,28 @@ if (process.env.NODE_ENV !== 'test') {
 const app = feathers();
 // Enable Socket.io
 app.configure(socketio({ wsEngine: 'uws' }, (io) => {
-  io.on('connection', function(socket) {
+  io.on('connection', (socket) => {
     socket.emit('news', { text: 'A client connected!' });
-    socket.on('my other event', function (data) {
-      console.log(data);
-    });
   });
 
   // Registering Socket.io middleware
-  io.use(function (socket, next) {
+  io.use((socket, next) => {
       // Exposing a request property to services and hooks
       socket.feathers.referrer = socket.request.referrer;
       next();
     });
 }));
+
+// Get our realtime routes
+const realtime_routes = require('./server/routes/realtime');
+
+// app.use('/realtime', realtime_routes);
+// app.use('realtime/user_status', {
+//   update(data, params) {
+//     return Promise.resolve(data);
+//   }
+// });
+
 // Enable REST services
 app.configure(rest());
 
@@ -52,10 +60,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(feathers.static(path.join(__dirname, 'dist')));
 
 // Get our API routes
-const api = require('./server/routes/api');
+const api_routes = require('./server/routes/api');
 
 // Set our api routes
-app.use('/api', api);
+app.use('/api', api_routes);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

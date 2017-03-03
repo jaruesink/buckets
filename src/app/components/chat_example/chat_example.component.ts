@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HelpersService, FeathersService } from '../../services/';
+import { UserService, FeathersService } from '../../services/';
 
 @Component({
   selector: 'chatexample',
@@ -8,8 +8,14 @@ import { HelpersService, FeathersService } from '../../services/';
 })
 export class ChatExampleComponent {
 
-  constructor(helpers: HelpersService, feathers: FeathersService) {
-    
+  constructor(public user: UserService, public feathers: FeathersService) {
+
+  }
+
+  updateStatus(form) {
+    let status = form.value.status;
+    this.feathers.updateStatus(status);
+    form.reset();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService, HelpersService, UserService, } from '../../services';
+import { AuthService, HelpersService, UserService, FeathersService } from '../../services';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,8 @@ export class HomePage implements OnInit {
   constructor(
     public helpers: HelpersService,
     private router: Router,
-    public user: UserService
+    public user: UserService,
+    private feathers: FeathersService,
   ) { }
 
   ngOnInit() {}

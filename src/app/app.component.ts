@@ -27,6 +27,9 @@ export class AppComponent {
       this.helpers.loading = false;
       if (accessToken) { this.router.navigate(['/']) }
       else { this.router.navigate(['/login']) }
+    }).catch(() => {
+      this.helpers.loading = false;
+      this.router.navigate(['/login']);
     });
   }
 }

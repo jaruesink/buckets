@@ -18,8 +18,18 @@ export const ROUTES = [
 ];
 
 // Components
-import { HeaderComponent, NotificationComponent, BucketlistComponent } from './components';
-export const COMPONENTS = [ HeaderComponent, NotificationComponent, BucketlistComponent ];
+import {
+  HeaderComponent,
+  NotificationComponent,
+  BucketlistComponent,
+  ChatExampleComponent
+} from './components';
+export const COMPONENTS = [
+  HeaderComponent,
+  NotificationComponent,
+  BucketlistComponent,
+  ChatExampleComponent
+];
 
 // Directives
 import {} from './directives';
@@ -32,5 +42,5 @@ export const PIPES = []
 
 // Services
 import { FacebookService } from 'ng2-facebook-sdk';
-import { HelpersService, AuthService, UserService } from './services';
-export const SERVICES = [ FacebookService, HelpersService, AuthService, UserService ];
+import { HelpersService, AuthService, UserService, FeathersService } from './services';
+export const SERVICES = [ FacebookService, HelpersService, AuthService, UserService, FeathersService ];

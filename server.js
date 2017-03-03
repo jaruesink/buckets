@@ -21,10 +21,25 @@ if (process.env.NODE_ENV !== 'test') {
   );
 }
 
+
 // Initiate our app
 const app = feathers();
 // Enable Socket.io
-app.configure(socketio());
+app.configure(socketio({ wsEngine: 'uws' }, (io) => {
+  io.on('connection', function(socket) {
+    socket.emit('news', { text: 'A client connected!' });
+    socket.on('my other event', function (data) {
+      console.log(data);
+    });
+  });
+
+  // Registering Socket.io middleware
+  io.use(function (socket, next) {
+      // Exposing a request property to services and hooks
+      socket.feathers.referrer = socket.request.referrer;
+      next();
+    });
+}));
 // Enable REST services
 app.configure(rest());
 
@@ -49,7 +64,7 @@ app.get('*', (req, res) => {
 
 // Get port from environment and store in Express.
 const port = process.env.PORT || '3000';
-app.set('port', port);
+// app.set('port', port);
 console.log('port listening on: ', port);
 
 // Listen on provided port, on all network interfaces.

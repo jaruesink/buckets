@@ -1,5 +1,5 @@
-<p *ngIf="user.me.status">{{user.me.status}}</p>
-
+<p *ngIf="user.me.status">My status: {{user.me.status}}</p>
+<br><br>
 <form #updateStatusForm="ngForm" (ngSubmit)="updateStatus(updateStatusForm)">
   <md-input-container>
     <input mdInput name="status" ngModel #status="ngModel" placeholder="enter a new status" required>

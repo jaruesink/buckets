@@ -1,0 +1,11 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "comma-dangle": 0,
+    "no-console": [1, { "allow": ["warn", "error", "info"] }],
+    "camelcase": 0,
+    "class-methods-use-this": 0,
+  }
+}

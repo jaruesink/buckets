@@ -18,6 +18,9 @@ const UserSchema = new Schema({
   picture: {
     type: String,
     default: 'http://b.static.ak.fbcdn.net/rsrc.php/v1/yo/r/UlIqmHJn-SK.gif'
+  },
+  status: {
+    type: String
   }
 });
 

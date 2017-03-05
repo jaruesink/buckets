@@ -1,17 +1,17 @@
-const assert  = require('assert');
+/* global describe, it */
+
+const assert = require('assert');
 const request = require('supertest');
-const app     = require('../../server');
+const app = require('../../server');
 
 const mongoose = require('mongoose');
+
 mongoose.Promise = global.Promise;
 const User = mongoose.model('User');
 
 describe('User controller', () => {
-
-
   it('Posts to /api/user creates a new user', (done) => {
     User.count().then((count) => {
-
       request(app)
         .post('/api/user')
         .send({
@@ -21,21 +21,16 @@ describe('User controller', () => {
         })
         .end((error, response) => {
           // console.log(response.body);
-          if (error) { console.log('error: ', error) };
-
+          if (error) { console.error('error: ', error); }
           User.count().then((newCount) => {
             assert(count + 1 === newCount);
             done();
           });
-
         });
-
-    })
-  })
-
+    });
+  });
 
   it('Put to /api/user/:id edits an existing user', (done) => {
-
     const user = new User({
       fbid: 1234567890,
       name: 'Test User',
@@ -50,19 +45,17 @@ describe('User controller', () => {
         })
         .end((error, response) => {
           // console.log(response.body);
-          if (error) { console.log('error: ', error) };
+          if (error) { console.error('error: ', error); }
           User.findOne({ _id: user._id })
-            .then((edited_user) => {
-              assert(edited_user.name === 'Joe Tester');
+            .then((editedUser) => {
+              assert(editedUser.name === 'Joe Tester');
               done();
             });
         });
     });
-
   });
 
   it('Delete to /api/user/:id deletes an existing user', (done) => {
-
     const user = new User({
       fbid: 1234567890,
       name: 'Test User',
@@ -74,16 +67,13 @@ describe('User controller', () => {
         .delete(`/api/user/${user._id}`)
         .end((error, response) => {
           // console.log(response.body);
-          if (error) { console.log('error: ', error) };
+          if (error) { console.error('error: ', error); }
           User.findOne({ _id: user._id })
-            .then((find_result) => {
-              assert(find_result === null);
+            .then((findResult) => {
+              assert(findResult === null);
               done();
             });
         });
     });
-
   });
-
-
-})
+});

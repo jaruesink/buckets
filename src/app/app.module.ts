@@ -20,8 +20,8 @@ import { ROUTES, PAGES, SERVICES, COMPONENTS } from './appstuff';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule,
-    FlexLayoutModule,
+    MaterialModule.forRoot(),
+    FlexLayoutModule.forRoot(),
     RouterModule.forRoot(ROUTES)
   ],
   providers: [ SERVICES ],

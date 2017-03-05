@@ -1,13 +1,24 @@
 const feathers = require('feathers');
+
 const realtime = feathers();
 
+const socketio = require('feathers-socketio');
 
-const user_controller = require('../controllers/user_controller');
+realtime.configure(socketio({ wsEngine: 'uws' }, (io) => {
+  io.on('connection', (socket) => {
+    socket.emit('news', { text: 'A client connected!' });
+  });
 
-realtime.use('/user_status', {
-  update(data, params, next) {
-    user_controller.edit_realtime(data, params, next);
-  }
-});
+  // Registering Socket.io middleware
+  io.use((socket, next) => {
+    // Exposing a request property to services and hooks
+    socket.feathers.referrer = socket.request.referrer;
+    next();
+  });
+}));
+
+const UserService = require('../controllers/user_service');
+
+realtime.use('/user_status', new UserService());
 
 module.exports = realtime;

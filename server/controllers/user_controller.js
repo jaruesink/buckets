@@ -18,16 +18,6 @@ module.exports = {
       .catch(next);
   },
 
-  edit_realtime(data, params, next) {
-    const userID = data.id;
-    const userProps = data.status;
-
-    User.findByIdAndUpdate({ _id: userID }, userProps)
-      .then(() => User.findById({ _id: userID }))
-      .then(user => Promise.resolve(user))
-      .catch(next);
-  },
-
   delete(req, res, next) {
     const userID = req.params.id;
     const userProps = req.body;
